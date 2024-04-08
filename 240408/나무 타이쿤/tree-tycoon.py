@@ -54,15 +54,8 @@ def cut_drug():
 
 for d, p in rules:
     drug = move(d, p)
-    # print(drug)
-    # for row in board:
-    #     print(row)
-    # print()
     feed_water()
     drug = cut_drug()
-# for row in board:
-#     print(row)
-
 
 ans = sum(sum(board, []))
 print(ans)
