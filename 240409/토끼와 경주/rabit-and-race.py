@@ -17,6 +17,7 @@ def init(inputs):
         scores[pid] = 0
     heapq.heapify(rabbits)
 def race(K, S):
+    K = min(100, K)
     dy = [-1, 0, 1, 0]
     dx = [0, 1, 0, -1]
     can = set()
