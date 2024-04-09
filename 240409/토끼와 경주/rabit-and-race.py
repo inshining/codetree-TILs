@@ -16,36 +16,91 @@ def init(inputs):
         distance[pid] = d
         scores[pid] = 0
     heapq.heapify(rabbits)
+def go_up(y,x,rd):
+    rd %= 2 * (N-1)
+
+    if rd >= y:
+        rd -= y
+        y = 0
+    else:
+        y -= rd
+        rd = 0
+    if rd >= N - y -1:
+        rd -= (N - y - 1)
+        y = N-1
+    else:
+        y += rd
+        rd = 0
+
+    y -= rd
+    return y, x
+def go_down(y,x,rd):
+    rd  %= 2 * (N-1)
+
+    if rd >= N - y -1:
+        rd  -= (N - y -1)
+        y = N-1
+    else:
+        y += rd
+        rd = 0
+    if rd >= y:
+        rd -= y
+        y = 0
+    else:
+        y -= rd
+        rd = 0
+    y += rd
+    return y, x
+def go_left(y,x,rd):
+    rd %= 2 * (M-1)
+    if rd >= x:
+        rd -= x
+        x = 0
+    else:
+        x -= rd
+        rd = 0
+    if rd >= M - x -1:
+        rd -= (M - x -1)
+        x = M -1
+    else:
+        x += rd
+        rd = 0
+    x -= rd
+    return y,x
+def go_right(y,x,rd):
+    rd %= 2 * (M-1)
+    if rd >= M - x - 1:
+        rd -= (M -x-1)
+        x = M-1
+    else:
+        x += rd
+        rd = 0
+    if rd >= x :
+        rd -= x
+        x = 0
+    else:
+        x -= rd
+        rd =0
+    x += rd
+    return y,x
 def race(K, S):
     K = min(100, K)
     dy = [-1, 0, 1, 0]
     dx = [0, 1, 0, -1]
     can = set()
     for _ in range(K):
-        r = heapq.heappop(rabbits)
-        current_jump, _, r, c, pid = r
+        rabbit = heapq.heappop(rabbits)
+        current_jump, _, r, c, pid = rabbit
         rd = distance[pid]
         dir_q = []
-        y_num = rd % ((N-1) * 2)
-        x_num = rd % ((M-1) * 2)
-        for i in range(4):
-            nr, nc = r, c
-            if dy[i] != 0:
-                y_i = 0
-                while y_i < y_num:
-                    if nr + dy[i] < 0 or N <= nr + dy[i]:
-                        i = (i+2) % 4
-                    nr = nr + dy[i]
-                    y_i += 1
-            if dx[i] != 0:
-                x_i = 0
-                while x_i < x_num:
-                    if nc + dx[i] < 0 or M <= nc + dx[i]:
-                        i = (i+2) % 4
-                    nc = nc + dx[i]
-                    x_i +=1
-            heapq.heappush(dir_q, (-(nr + nc), -nr, -nc))
-
+        nr,nc = go_up(r,c,rd)
+        heapq.heappush(dir_q, (-(nr + nc), -nr, -nc))
+        nr,nc = go_down(r,c,rd)
+        heapq.heappush(dir_q, (-(nr + nc), -nr, -nc))
+        nr,nc = go_left(r,c,rd)
+        heapq.heappush(dir_q, (-(nr + nc), -nr, -nc))
+        nr,nc = go_right(r,c,rd)
+        heapq.heappush(dir_q, (-(nr + nc), -nr, -nc))
         _, nr, nc = heapq.heappop(dir_q)
         nr = -nr
         nc = -nc
