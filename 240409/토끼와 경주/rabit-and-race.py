@@ -1,11 +1,11 @@
 import heapq
 Q = int(input())
 
-MAX_R = 2002
+MAX_R = 10000001
 N, M, P = 0, 0, 0
 rabbits = []
 scores = {}
-distance = [0] * 2002
+distance = [0] * MAX_R
 
 def init(inputs):
     global N, M, P, rabbits
