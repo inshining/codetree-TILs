@@ -14,20 +14,12 @@ def walk():
     next_one = end_idx
     for j in range(1, N):
         cur = (end_idx - j) % (2 * N)
-        if persons[cur]:
-            if not next_people[next_one] and moving_walk[next_one] > 0:
-                next_people[next_one] = 1
-                moving_walk[next_one] -= 1
+        if persons[cur] and not next_people[next_one] and moving_walk[next_one] > 0:
+            next_people[next_one] = 1
+            moving_walk[next_one] -= 1
+        else:
+            next_people[cur] = persons[cur]
         next_one = cur
-
-    while j < N:
-        idx = (start_index + j) % (N*2)
-        if persons[idx]:
-            next_idx = (idx+1) % (N*2)
-            if not next_people[next_idx] and moving_walk[next_idx] > 0:
-                next_people[next_idx] = 1
-                moving_walk[next_idx] -= 1
-        j += 1
 
     for j in range(N * 2):
         idx = (start_index + j) % (N*2)
@@ -58,6 +50,7 @@ while True:
     walk()
     go_down()
     go_up()
+    go_down()
     if count_block():
         break
     i += 1
