@@ -6,6 +6,7 @@ N, M, P = 0, 0, 0
 rabbits = []
 scores = {}
 distance = [0] * MAX_R
+round_score = 0
 
 def init(inputs):
     global N, M, P, rabbits
@@ -106,10 +107,9 @@ def race(K, S):
         nc = -nc
 
         heapq.heappush(rabbits, (current_jump+1, nr+nc, nr, nc, pid))
-        for r_id in scores.keys():
-            if pid ==r_id:
-                continue
-            scores[r_id] += nr + nc +2
+        scores[pid] -= nr + nc + 2
+        global  round_score
+        round_score += nr + nc + 2
 
         can.add(pid)
 
@@ -136,5 +136,6 @@ for _ in range(Q):
         result = -1
         for k, v in scores.items():
             result = max(result, v)
+        result += round_score
         print(result)
         break
