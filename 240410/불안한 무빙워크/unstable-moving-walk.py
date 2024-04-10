@@ -4,20 +4,22 @@ persons = [0] * (N*2)
 start_index = 0
 
 def move():
-    # back = moving_walk.pop(-1)
-    # moving_walk.insert(0, back)
-    #
-    # next_people = [0] * N
-    # for i in range(N-2, -1, -1):
-    #     next_people[i+1] = persons[i]
-    # for i in range(N):
-    #     persons[i] = next_people[i]
     global start_index
     start_index = (start_index -1) % (N * 2)
 def walk():
     global start_index
     next_people = [0] * (N * 2)
-    j = 0
+    end_idx = (start_index + N - 1) % (2 * N)
+
+    next_one = end_idx
+    for j in range(1, N):
+        cur = (end_idx - j) % (2 * N)
+        if persons[cur]:
+            if not next_people[next_one] and moving_walk[next_one] > 0:
+                next_people[next_one] = 1
+                moving_walk[next_one] -= 1
+        next_one = cur
+
     while j < N:
         idx = (start_index + j) % (N*2)
         if persons[idx]:
@@ -27,7 +29,7 @@ def walk():
                 moving_walk[next_idx] -= 1
         j += 1
 
-    for j in range(N):
+    for j in range(N * 2):
         idx = (start_index + j) % (N*2)
         persons[idx] = next_people[idx]
 
