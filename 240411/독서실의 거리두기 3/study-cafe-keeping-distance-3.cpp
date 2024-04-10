@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-int n, start, end, dis;
+int n, start, idx, dis;
 string seats;
 int main() {
     cin >> n;
@@ -12,12 +12,14 @@ int main() {
     for (int i =1; i < seats.size(); i++){
         if (seats[i] == '1'){
             if (i - start > dis){
-                dis = i - start; 
+                dis = i - start;
+                idx = i;
             }
             if (i != (seats.size() -1)) start=i;
         }
     }
-    seats[(start + dis + start)/2] = '1';
+    seats[(idx - dis + idx)/2] = '1';
+
     start = 0;
     dis = 1003;
 
