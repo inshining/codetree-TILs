@@ -11,6 +11,7 @@ def out(y,x):
 def bfs(y,x):
 	red = set()
 	pos = [(y, x)]
+	val = board[y][x]
 	q = deque()
 
 	visited[y][x] = True
@@ -26,11 +27,11 @@ def bfs(y,x):
 				continue
 			if board[ny][nx] == -1:
 				continue
-			if board[ny][nx] == board[y][x]:
+			if board[ny][nx] == val:
 				visited[ny][nx] = True
 				q.append((ny, nx))
 				pos.append((ny, nx))
-			if board[ny][nx] == 0 and (ny, nx) not in red:
+			elif board[ny][nx] == 0 and (ny, nx) not in red:
 				red.add((ny, nx))
 				q.append((ny, nx))
 	num = len(pos) + len(red)
