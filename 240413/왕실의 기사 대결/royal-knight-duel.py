@@ -45,6 +45,7 @@ def get_pid(y,x):
 		if r <= y < r +h and c <= x < c+w:
 			return i
 	return 0
+
 def is_pushed(pid, d):
 	if damage[pid] >= hp[pid]:
 		return False
@@ -62,14 +63,14 @@ def is_pushed(pid, d):
 	return True
 
 def push_knight(pid, d):
-	move_l = []
+	move_l = set()
 	q = make_power(pid,d)
 	while q:
 		y,x = q.popleft()
 		if not out(y,x):
 			other = get_pid(y,x)
 			if other > 0:
-				move_l.append(other)
+				move_l.add(other)
 				other_q = make_power(other, d)
 				q.extend(other_q)
 	return move_l
