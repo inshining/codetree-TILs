@@ -47,6 +47,10 @@ for _ in range(M):
 	can.sort(key=lambda x : (x[0],x[1], x[2]))
 	dist, ty, tx, pid = can[0]
 
+	if dist == -1:
+		C = -1
+		break
+
 	if dist >= C:
 		C = -1
 		break
@@ -55,6 +59,9 @@ for _ in range(M):
 	path =find_path(ty,tx)
 	_,_,end_y,end_x = sons[pid]
 	dist = path[end_y][end_x]
+	if dist == -1:
+		C = -1
+		break
 	if dist > C:
 		C = -1
 		break
