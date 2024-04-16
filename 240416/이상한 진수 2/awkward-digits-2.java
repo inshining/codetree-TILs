@@ -12,7 +12,7 @@ public class Main {
             if (a.charAt(i) == '0'){
                 k  = a.substring(0, i) + '1' + a.substring(i+1);
             } else{
-                k = a;
+                k = a.substring(0,i) + '0' + a.substring(i+1);
             }
             int num = 0;
             for (int j = 0; j <  n; j++){
