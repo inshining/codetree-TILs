@@ -17,16 +17,15 @@ public class Main {
         }
 
         int ans = 0;
-        for (int c = 0; c <= 100 - (2*K + 1); c++){
+        for (int c = K; c <= 100 - K; c++){
             num = 0;
-            for (int j = 0; j < 2* K +1; j++){
+            for (int j = -K; j < K+1; j++){
                 
                 num += arr[c+j];
             }
             ans = Math.max(ans, num);
         }
         System.out.println(ans);
-
 
     }
 }
