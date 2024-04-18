@@ -20,8 +20,8 @@ public class Main {
         for (int c = K; c <= 100 - K; c++){
             num = 0;
             for (int j = -K; j < K+1; j++){
-                
-                num += arr[c+j];
+                if (0<= c+j && c+j <= 100)
+                    num += arr[c+j];
             }
             ans = Math.max(ans, num);
         }
