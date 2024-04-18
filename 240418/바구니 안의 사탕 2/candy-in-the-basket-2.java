@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
     public static int N, K;
-    public static int[] arr= new int[101];
+    public static int[] arr= new int[102];
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
