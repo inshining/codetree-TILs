@@ -17,7 +17,7 @@ public class Main {
         }
 
         int ans = 0;
-        for (int c = K; c <= 100 - K; c++){
+        for (int c = 0; c <= 100-K; c++){
             num = 0;
             for (int j = -K; j < K+1; j++){
                 if (0<= c+j && c+j <= 100)
