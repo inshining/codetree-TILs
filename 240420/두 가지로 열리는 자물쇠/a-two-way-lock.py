@@ -1,43 +1,13 @@
 N = int(input())
-A = list(map(int, input().split()))
-B = list(map(int, input().split()))
+a1, a2, a3 = tuple(map(int, input().split()))
+b1, b2, b3 = tuple(map(int, input().split()))
 
-Al = []
-Bl = []
-for a in A:
-    temp = set()
-    for i in range(-2, 3, 1):
-        if a + i <= 0:
-            num = N + a +i
-        elif a + i > N:
-            num = a + i - N
-        else:
-            num = a + i
-        if 0 < num <= N:
-            temp.add(num)
-    Al.append(temp)
-
-for b in B:
-    temp = set()
-    for i in range(-2, 3 ,1):
-        if a + i <= 0:
-            num = N + b +i
-        elif a + i > N:
-            num = b + i - N
-        else:
-            num = b + i
-        if 0 < num <= N:
-            temp.add(num)
-    Bl.append(temp) 
-
-
-ans = set()
-for i in Al[0]:
-    for j in Al[1]:
-        for k in Al[2]:
-            ans.add(i * 100 + j * 10 + k)
-for i in Bl[0]:
-    for j in Bl[1]:
-        for k in Bl[2]:
-            ans.add(i * 100 + j * 10 + k)
-print(len(ans))
+ans = 0
+for i in range(1, N+1):
+    for j in range(1, N+1):
+        for k in range(1, N+1):
+            if (abs(a1 - i) <=2 or abs(a1-i) >= N-2) and (abs(a2 - j) <= 2 or abs(a2-j) >= N-2) and (abs(a3-k) <= 2 or abs(a3-k) >= N-2):
+                ans += 1
+            elif (abs(b1 - i) <=2 or abs(b1-i) >= N-2) and (abs(b2 - j) <= 2 or abs(b2-j) >= N-2) and (abs(b3-k) <= 2 or abs(b3-k) >= N-2):
+                ans += 1
+print(ans)
