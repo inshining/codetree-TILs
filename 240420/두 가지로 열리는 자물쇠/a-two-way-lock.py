@@ -8,23 +8,28 @@ for a in A:
     temp = set()
     for i in range(-2, 3, 1):
         if a + i <= 0:
-            temp.add(N + a +i)
+            num = N + a +i
         elif a + i > N:
-            temp.add(a + i - N)
+            num = a + i - N
         else:
-            temp.add(a + i)
+            num = a + i
+        if 0 < num <= N:
+            temp.add(num)
     Al.append(temp)
 
 for b in B:
     temp = set()
     for i in range(-2, 3 ,1):
         if a + i <= 0:
-            temp.add(N + b +i)
+            num = N + b +i
         elif a + i > N:
-            temp.add(b + i - N)
+            num = b + i - N
         else:
-            temp.add(b + i)
+            num = b + i
+        if 0 < num <= N:
+            temp.add(num)
     Bl.append(temp) 
+
 
 ans = set()
 for i in Al[0]:
