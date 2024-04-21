@@ -3,7 +3,6 @@ import java.util.*;
 public class Main {
     public static int N;
     public static int[][] arr = new int[101][2];
-    public static int[] isOver = new int[101];
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -14,25 +13,18 @@ public class Main {
             arr[i][1] = sc.nextInt();
         }
 
+        int ans = 0;
         for (int i = 0; i < N; i++){
-            int startX = Math.min(arr[i][0], arr[i][1]);
-            int endX = Math.max(arr[i][0], arr[i][1]);
-
+            boolean isOver = false;
             for (int j=0; j<N; j++){
                 if (i ==j) continue;
 
-                int bStartX = Math.min( arr[j][0], arr[j][1]);
-                int bEndX = Math.max( arr[j][0], arr[j][1]);
-
-                if ((startX <= bStartX && bStartX <= endX) && (startX <= bEndX && bEndX <= endX)){
-                    isOver[i] = 1;
-                    isOver[j] = 1;
+                if ((arr[i][0] <= arr[j][0] && arr[j][1] <= arr[i][1]) || (arr[j][0] <= arr[i][0] && arr[i][1] <= arr[j][1])){
+                    isOver = true;
+                    break;
                 }
             }
-        }
-        int ans = 0;
-        for (int i = 0; i < N; i++){
-            if (isOver[i] == 0){
+            if (isOver == false){
                 ans++;
             }
         }
