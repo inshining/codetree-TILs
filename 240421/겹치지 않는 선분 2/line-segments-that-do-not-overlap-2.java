@@ -15,14 +15,14 @@ public class Main {
         }
 
         for (int i = 0; i < N; i++){
-            int startX = arr[i][0];
-            int endX = arr[i][1];
+            int startX = Math.min(arr[i][0], arr[i][1]);
+            int endX = Math.max(arr[i][0], arr[i][1]);
 
             for (int j=0; j<N; j++){
                 if (i ==j) continue;
 
-                int bStartX = arr[j][0];
-                int bEndX = arr[j][1];
+                int bStartX = Math.min( arr[j][0], arr[j][1]);
+                int bEndX = Math.max( arr[j][0], arr[j][1]);
 
                 if ((startX <= bStartX && bStartX <= endX) && (startX <= bEndX && bEndX <= endX)){
                     isOver[i] = 1;
