@@ -12,6 +12,13 @@ for i in range(S):
 ans = 0
 for i in range(1, M+1):
     persons = records[i]
+    isEat = True
+    for sick_person in sicks.keys():
+        if sick_person not in persons:
+            isEat = False
+    if not isEat:
+        continue
+
     isCan = True
     for k in persons.keys():
         if k in sicks and sicks[k] <= persons[k]:
@@ -19,5 +26,4 @@ for i in range(1, M+1):
             break
     if isCan:
         ans = max(ans, len(persons))
-
 print(ans)
