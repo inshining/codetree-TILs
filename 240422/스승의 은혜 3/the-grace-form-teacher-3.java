@@ -18,17 +18,20 @@ public class Main {
         int ans = 0;
         for (int i =0; i < N; i++){
             int total = 0;
+            int[] sums = new int[N];
             for (int j = 0; j < N; j++){
                 if (j ==i){
-                    total += arr[j][0] / 2 + arr[i][1];
+                    sums[j] = arr[j][0] / 2 + arr[i][1];
                 } else{
-                    total += arr[j][0] + arr[j][1];
+                    sums[j]= arr[j][0] + arr[j][1];
                 }
-
+            }
+            Arrays.sort(sums);
+            
+            for (int k = 0; k <N; k++){
+                total += sums[k];
                 if (total <= B){
-                    ans = Math.max(ans, j+1);
-                } else{
-                    break;
+                    ans = Math.max(ans, k+1);
                 }
             }
         }
