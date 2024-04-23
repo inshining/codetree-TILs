@@ -1,7 +1,7 @@
 import java.util.*;
 public class Main {
     public static int X, Y;
-    public static int[] counter;
+    public static Map<Integer, Integer> counter;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         X = sc.nextInt();
@@ -9,18 +9,20 @@ public class Main {
 
         int ans = 0;
         for (int i = X; i <= Y; i++){
-            counter = new int[1000002];
+            counter = new HashMap<Integer, Integer>();
             int num = i;
             for (int j = 0; j< 7; j++){
                 int idx = num % 10;
                 num = num / 10;
-
-                counter[idx] += 1;
+                if (counter.containsKey(idx)){
+                    counter.put(idx, counter.get(idx)+1);
+                } else{
+                    counter.put(idx, 1);
+                }
+                if (counter.size() > 2) break;
             }
-            int a = i % 10;
-            int b = (i / 10) % 10;
-            if (counter[a] == (int)(Math.log10(i)) || counter[b] == (int)(Math.log10(i))){
-                ans++;
+            for (int v : counter.values()){
+                if (v == (int)(Math.log10(i))) ans++;
             }
         }
 
