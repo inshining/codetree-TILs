@@ -23,9 +23,12 @@ public class Main {
                 copy[j] = arr[j];
             }
             for (int j = 0; j < M; j++){
-                if (num == arr[num]) break;
-                temp +=arr[num];
-                num = arr[num];
+                if (num == copy[num]) break;
+                temp += copy[num];
+                int mem = copy[num];
+                copy[num] = num;
+                num = mem;
+
             }
             ans = Math.max(ans, temp);
         }
