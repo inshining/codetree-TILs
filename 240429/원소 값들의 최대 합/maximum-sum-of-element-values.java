@@ -14,7 +14,7 @@ public class Main {
 
         int ans = 0;
 
-        for (int i = 1; i < N; i++){
+        for (int i = 1; i < N+1; i++){
             int temp = 0;
             int num = i;
             for (int j = 0; j < M; j++){
