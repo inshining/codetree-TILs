@@ -10,7 +10,9 @@ for y in range(1, N+1):
         
         if S[y] == S[x]:
             board[y][x] = board[y-1][x-1] +1
-        else:
-            board[y][x] = max(board[y-1][x], board[y][x-1])
+        # else:
+        #     board[y][x] = max(board[y-1][x], board[y][x-1])
 
+# for row in board:
+    # print(row[1:])
 print(max(sum(board, []))+1)
