@@ -1,48 +1,28 @@
 import java.util.*;
 public class Main {
     public static int N;
-    public static int[] arr = new int[21];
+    public static char[] arr;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
-        String line = sc.next();
-        int p = 0;
-        for (int i = 0; i < N; i++){
-            char k =  line.charAt(i);
-            if (k == '1'){
-                arr[i] = 1;
-            } else{
-                arr[i] = 0;
-            }
-        }
-
-        int ans = Integer.MIN_VALUE;
+        arr = sc.next().toCharArray();
+        
+        int ans = 0;
 
         for (int i = 0; i < N; i++){
-            if (arr[i] == 0){
-                arr[i] = 1;
-                int dis = Integer.MAX_VALUE;
+            if (arr[i] == '0'){
+                arr[i] = '1';
 
-                int start = 0;
+                int minDist = N;
                 for (int j = 0; j < N; j++){
-                    if (arr[j] == 1){
-                        start = j;
-                        break;
+                    for (int k =j+1; k <N; k++){
+                        if (arr[j] == '1' && arr[k] == '1'){
+                            minDist = Math.min(minDist, k - j);
+                        }
                     }
                 }
-
-
-                for (int j = start+1; j < N; j++){
-                    if (arr[j] == 1){
-                        dis = Math.min(dis, j-start);
-                        start = j;
-                    }
-                }
-
-                dis = Math.min(dis, N-start);
-
-                ans = Math.max(ans, dis);
-                arr[i] = 0;
+                ans = Math.max(ans, minDist);
+                arr[i] = '0';
             }
         }
 
