@@ -10,31 +10,40 @@ public class Main {
         for (int i = 0; i < N; i++){
             char k =  line.charAt(i);
             if (k == '1'){
-                arr[p] = i;
-                p++;
-            } 
+                arr[i] = 1;
+            } else{
+                arr[i] = 0;
+            }
         }
 
-        int ans = Integer.MAX_VALUE;
+        int ans = Integer.MIN_VALUE;
 
-        if (p==1){
-            ans = Math.max(N-arr[0], arr[0])-1;
-        } else{
-            for (int i = 1; i < p; i++){
-                ans = Math.min(ans, arr[i] - arr[i-1]);
-            }
-            int total = Integer.MIN_VALUE;
-            for (int i =0; i< N; i++){
-                if (line.charAt(i) == '0'){
-                    int dis = Integer.MAX_VALUE;
-                    for (int j = 0; j < p; j++){
-                        dis = Math.min(dis, Math.abs(arr[j] - i));
+        for (int i = 0; i < N; i++){
+            if (arr[i] == 0){
+                arr[i] = 1;
+                int dis = Integer.MAX_VALUE;
+
+                int start = 0;
+                for (int j = 0; j < N; j++){
+                    if (arr[j] == 1){
+                        start = j;
+                        break;
                     }
-                    // System.out.println(dis);
-                    total = Math.max(total, dis);
                 }
+
+
+                for (int j = start+1; j < N; j++){
+                    if (arr[j] == 1){
+                        dis = Math.min(dis, j-start);
+                        start = j;
+                    }
+                }
+
+                dis = Math.min(dis, N-start);
+
+                ans = Math.max(ans, dis);
+                arr[i] = 0;
             }
-            ans = Math.min(total, ans);
         }
 
         System.out.println(ans);
