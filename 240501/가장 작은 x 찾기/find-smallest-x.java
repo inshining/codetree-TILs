@@ -12,7 +12,7 @@ public class Main {
             B[i] = sc.nextInt();
         }
         int ans = 0;
-        for (int x = 1; x < 501; x++){
+        for (int x = 1; x < 5001; x++){
             boolean isSucces = true;
             int num = x;
             for (int i = 0; i < N; i++){
