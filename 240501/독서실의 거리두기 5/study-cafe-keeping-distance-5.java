@@ -18,7 +18,7 @@ public class Main {
         int ans = Integer.MAX_VALUE;
 
         if (p==1){
-            ans = Math.max(N-arr[0], arr[0]);
+            ans = Math.max(N-arr[0], arr[0])-1;
         } else{
             for (int i = 1; i < p; i++){
                 ans = Math.min(ans, arr[i] - arr[i-1]);
