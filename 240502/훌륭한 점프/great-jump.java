@@ -25,7 +25,7 @@ public class Main {
             arr[i] = sc.nextInt();
         }
         int ans = 101;
-        for (int i = 100; i >= Math.max(arr[0], arr[N]);i--){
+        for (int i = 100; i >= Math.max(arr[0], arr[N-1]);i--){
             if (isPossible(i)){
                 ans = Math.min(ans, i);
             }
