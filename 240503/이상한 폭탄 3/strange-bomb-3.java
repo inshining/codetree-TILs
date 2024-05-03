@@ -9,7 +9,7 @@ public class Main {
         N = sc.nextInt();
         K = sc.nextInt();
 
-        int maxBomb = 0;
+        int maxBomb = 1;
         int ans = 0;
 
         for (int i =0; i < N; i++){
