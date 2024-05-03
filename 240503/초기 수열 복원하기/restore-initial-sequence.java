@@ -16,7 +16,7 @@ public class Main {
             boolean isSuccess = true;
             for (int j=0; j < N-1; j++){
                 int k = Math.abs(arr[j] - val);
-                if (isCheck[k]){
+                if (k < 1 || k > N || isCheck[k]){
                     isSuccess=false;
                     break;
                 } else{
