@@ -37,6 +37,9 @@ public class Main {
             // System.out.println();
 
             // System.out.println(num + " " + bombs[i]);
+            if (num == 1){
+                continue;
+            }
             if (maxBomb < num){
                 maxBomb = num;
                 ans = bombs[i];
