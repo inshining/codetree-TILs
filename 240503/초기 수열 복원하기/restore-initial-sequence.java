@@ -15,13 +15,14 @@ public class Main {
             int val = i;
             boolean isSuccess = true;
             for (int j=0; j < N-1; j++){
-                if (isCheck[arr[j] - val]){
+                int k = Math.abs(arr[j] - val);
+                if (isCheck[k]){
                     isSuccess=false;
                     break;
                 } else{
                     ans[j] = val;
-                    isCheck[arr[j]-val] = true;
-                    val = arr[j] - val;
+                    isCheck[k] = true;
+                    val = k;
                 }
             }
             ans[N-1] = val;
