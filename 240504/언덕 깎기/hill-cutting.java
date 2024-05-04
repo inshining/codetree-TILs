@@ -13,7 +13,7 @@ public class Main {
         Arrays.sort(arr);
 
         int ans = Integer.MAX_VALUE;
-        for(int i = 4; i <= 4; i++){
+        for(int i = 0; i <= 100-17; i++){
             int total = 0;
             for (int j = 0; j < N; j++){
                 int k;
