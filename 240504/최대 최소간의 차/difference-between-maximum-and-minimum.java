@@ -10,7 +10,7 @@ public class Main {
         for (int i = 0; i < N; i++){
             arr[i] = sc.nextInt();
         }
-        int ans=10000;
+        int ans=Integer.MAX_VALUE;
         for (int start = 1; start <= 10000; start++){
             int total = 0;
             for (int i=0; i < N;i++){
