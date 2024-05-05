@@ -13,7 +13,7 @@ public class Main {
             }
             int j = 0;
             while (j < k){
-                if (i + j < N){
+                if (i + j >= N){
                     return false;
                 }
                 if (k != answer.get(i+j)){
