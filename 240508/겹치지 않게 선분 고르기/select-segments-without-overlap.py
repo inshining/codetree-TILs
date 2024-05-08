@@ -5,6 +5,7 @@ for _ in range(N):
     line.append((x1, x2))
 
 ans = 0
+line.sort()
 def go(idx, num, end):
     if idx == N:
         global ans
