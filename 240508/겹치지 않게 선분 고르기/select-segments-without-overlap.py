@@ -2,14 +2,17 @@ N = int(input())
 line = []
 for _ in range(N):
     x1, x2 = map(int, input().split())
-    line.append((x1, x2, x2-x1))
+    line.append((x1, x2))
 
-line.sort(key=lambda x : (x[0], x[2], x[1]))
-
-start = -1
 ans = 0
-for l in line:
-    if start < l[0]:
-        ans += 1
-        start = l[1]
+def go(idx, num, end):
+    if idx == N:
+        global ans
+        ans = max(ans, num)
+        return 
+    if end < line[idx][0]:
+        go(idx+1, num+1, line[idx][1])
+    go(idx+1, num, end)
+
+go(0,0, -1)
 print(ans)
