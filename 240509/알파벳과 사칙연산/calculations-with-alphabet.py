@@ -1,6 +1,6 @@
 line = input()
 arr = []
-ans = 0
+ans = -int(1e9)
 def cal():
     global ans
     d = {}
