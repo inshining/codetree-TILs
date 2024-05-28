@@ -29,8 +29,9 @@ public class Main {
     }
 
     public static void go(int idx, int sel){
-        if (sel == 2){
-            double v= Math.pow(B.get(0).y - B.get(1).y, 2) + Math.pow(B.get(0).x - B.get(1).x, 2);
+        if (sel == M){
+            // double v= Math.pow(B.get(0).y - B.get(1).y, 2) + Math.pow(B.get(0).x - B.get(1).x, 2);
+            double v = cal();
             ans = Math.min(v, ans);
             return;
         }
@@ -41,5 +42,16 @@ public class Main {
         go(idx+1, sel+1);
         B.remove(B.size() - 1);
         go(idx+1, sel);
+    }
+
+    public static double cal(){
+        double temp = 0;
+        for (int i = 0; i < M; i++){
+            for (int j = i+1; j < M; j++){
+                double v= Math.pow(B.get(i).y - B.get(j).y, 2) + Math.pow(B.get(i).x - B.get(j).x, 2);
+                temp = Math.max(v, temp);
+            }
+        }
+        return temp;
     }
 }
