@@ -9,7 +9,7 @@ public class Main {
         dp[1] = 1;
         dp[2] = 2;
         for (int i = 3; i <= N; i++){
-            dp[i] = dp[i-1] * 2 + (int) Math.pow(2, i-2);
+            dp[i] = dp[i-1] * 2 + (int) Math.pow(2, i-3);
         }
         System.out.println(dp[N]);
     }
