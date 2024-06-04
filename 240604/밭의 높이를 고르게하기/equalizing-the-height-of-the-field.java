@@ -8,14 +8,14 @@ public class Main {
         H = sc.nextInt();
         T = sc.nextInt();
 
-        arr = new int[N];
+        arr = new int[100];
         int ans = Integer.MAX_VALUE;
 
         for (int i = 0; i <N; i++){
             arr[i] = Math.abs(sc.nextInt() - H);
         }
 
-        for (int i = 0; i < N- T;i++){
+        for (int i = 0; i <= N- T;i++){
             int num = 0;
             for (int j=i; j < i+T; j++){
                 num += arr[j];
