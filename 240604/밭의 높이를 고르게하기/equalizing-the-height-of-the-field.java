@@ -18,7 +18,9 @@ public class Main {
         for (int i = 0; i < N;i++){
             int num = 0;
             for (int j = 0; j < T; j++){
-                num += arr[i+j];
+                if (i+j < N){
+                    num += arr[i+j];
+                }
             }
             ans = Math.min(ans, num);
         }
