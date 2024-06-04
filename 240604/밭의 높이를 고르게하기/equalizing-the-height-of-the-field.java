@@ -15,12 +15,10 @@ public class Main {
             arr[i] = Math.abs(sc.nextInt() - H);
         }
 
-        for (int i = 0; i < N;i++){
+        for (int i = 0; i < N- T;i++){
             int num = 0;
-            for (int j = 0; j < T; j++){
-                if (i+j < N){
-                    num += arr[i+j];
-                }
+            for (int j=i; j < i+T; j++){
+                num += arr[j];
             }
             ans = Math.min(ans, num);
         }
