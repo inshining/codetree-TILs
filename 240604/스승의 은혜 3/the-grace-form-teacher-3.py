@@ -14,12 +14,16 @@ for i in range(N):
     temp.sort()
     total = 0
 
-    for i in range(N):
-        if total < B:
-            ans = max(ans, i)
-        total += temp[i]
-    if total < B:
-        ans = max(ans, i)
+    j = 0
+    while j < N:
+        if total > B:
+            break
+        ans = max(ans, j)
+        total += temp[j]
+        j+=1
+
+    if total <= B:
+        ans = max(ans, j)
     
     items[i][0] *= 2
 print(ans)
