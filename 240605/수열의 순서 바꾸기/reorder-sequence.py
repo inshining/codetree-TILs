@@ -11,7 +11,7 @@ ans = 0
 while not is_sort():
     v = vs.pop(0)
     
-    e = -1
+    e = 0
     for i in range(N-2, 0, -1):
         if vs[i-1] > vs[i]:
             e = i
