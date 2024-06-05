@@ -1,20 +1,31 @@
 N = int(input())
 vs = list(map(int, input().split()))
 
-ans = 0
-def go(s, turn):
-    # print(s)
-    if s >= N:
-        global ans
-        ans = max(ans, turn)
-        return
-    
-    num = 0
-    for i in range(s, N):
-        num += vs[i]
-        if turn % 2 == 0 and num % 2 == 0:
-            go(i+1, turn + 1)
-        if turn % 2 == 1 and num % 2 == 1:
-            go(i+1, turn + 1)
-go(0, 0)
-print(ans)
+even = 0
+odd = 0
+for b in vs:
+    if b % 2 == 0:
+        even += 1
+    else:
+        odd += 1
+
+group_num = 0
+while True:
+    if group_num % 2 == 0:
+        if even:
+            even -= 1
+            group_num += 1
+        elif odd >= 2:
+            odd -= 2
+            group_num += 1
+        else:
+            if even > 0 or odd > 0:
+                group_num -= 1
+            break
+    else:
+        if odd:
+            odd -= 1
+            group_num += 1
+        else:
+            break
+print(group_num)
