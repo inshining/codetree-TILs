@@ -1,8 +1,9 @@
+import sys
 s = input()
 
 m = { chr(k+ ord('a')) : 0 for k in range(6)}
 
-ans = 0
+ans = - sys.maxsize
 def cal():
     v = m[s[0]]
 
@@ -15,6 +16,7 @@ def cal():
             v *= m[s[i+1]]
     global ans
     ans = max(ans, v)
+    
 def go(idx):
     if idx >= 6:
         cal()
