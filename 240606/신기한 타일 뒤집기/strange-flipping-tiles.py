@@ -6,18 +6,18 @@ for _ in range(N):
     a,b = input().split()
     a = int(a)
     if b == "L":
-        
-        W += a
+        v = a
         if last == "L":
-            W -= 1
-        
-        B = B - a if B > a else 0
+            v -= 1
+        W += v
+        B = B - v if B > v else 0
         last = "L"
     else: 
-        B += a
+        v = a
         if last == "B":
-            B -= 1
-        W = W - a if W > a else 0
+            v -= 1
+        B += v
+        W = W - v if W > v else 0
         
         last = "B"
 print(W, B)
