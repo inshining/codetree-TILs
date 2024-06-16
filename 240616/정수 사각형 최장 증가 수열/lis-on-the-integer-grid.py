@@ -6,38 +6,26 @@ board = [list(map(int, input().split())) for _ in range(n)]
 dy = [-1, 0, 1, 0]
 dx = [0, 1, 0, -1]
 
-def bfs(y,x):
-    visit = [[False] * n for _ in range(n)]
-    dp = [[0] * n for _ in range(n)]
+cells = []
+for y in range(n):
+    for x in range(n):
+        cells.append((board[y][x], y, x))
 
-    visit[y][x] = True
-    dp[y][x] = 1
-    result = 1
-    q = deque()
-    q.append((y,x))
+cells.sort()
 
-    while q:
-        y,x = q.popleft()
-        for i in range(4):
-            ny = y + dy[i]
-            nx = x + dx[i]
+dp =  [[1] * n for _ in range(n)]
 
-            if ny < 0 or n <= ny or nx < 0 or n <= nx:
-                continue
-            if visit[ny][nx]:
-                continue
-            
-            if board[ny][nx] <= board[y][x]:
-                continue
-            
-            visit[ny][nx] = True
-            dp[ny][nx] = dp[y][x] + 1
-            result = max(dp[ny][nx], result)
-            q.append((ny,nx))
-    return result
+for _ , y, x in cells:
+    for i in range(4):
+        ny = y + dy[i]
+        nx = x + dx[i]
+        if ny < 0 or n <= ny or nx < 0 or n <= nx:
+            continue
+        if board[ny][nx] > board[y][x]:
+            dp[ny][nx] = max(dp[ny][nx], dp[y][x] + 1)
 
 ans  = 0
 for y in range(n):
     for x in range(n):
-        ans = max(ans, bfs(y,x))
+        ans = max(ans, dp[y][x])
 print(ans)
