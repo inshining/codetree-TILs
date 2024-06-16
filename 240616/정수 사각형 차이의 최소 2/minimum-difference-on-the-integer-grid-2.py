@@ -24,7 +24,14 @@ for y in range(1, n):
 
         if a1 - a2 < b1 - b2:
             dp[y][x] = [a1, a2]
-        else:
+        elif a1 - a2 > b1 - b2:
             dp[y][x] = [b1, b2]
+        else:
+            if a1 + a2 > b1 + b2:
+                dp[y][x] = [b1, b2]
+            else:
+                dp[y][x] = [a1, a2]
 
+# for row in dp:
+#     print(row)
 print(dp[n-1][n-1][0] - dp[n-1][n-1][1])
