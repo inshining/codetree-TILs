@@ -16,5 +16,6 @@ total = sum(l)
 ans = total
 for i in range(1, total):
     if dp[i] > 0:
-        ans = min(ans, total - dp[i])
+        ans = min(ans, abs(total - (dp[i] * 2)))
+
 print(ans)
