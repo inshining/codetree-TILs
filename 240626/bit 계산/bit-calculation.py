@@ -3,8 +3,11 @@ N = int(input())
 y = 0
 for _ in range(N):
     
-    command, x = input().split()
-    x = int(x)
+    command, *v = input().split()
+    x =0
+    if len(v):
+
+        x = int(v[0])
     if command == "add":
         y = y + (1 << x)
     elif command == "delete":
