@@ -1,26 +1,28 @@
 N, M = map(int, input().split())
 A = list(map(int, input().split()))
 targets = [list(map(int, input().split())) for _ in range(M)]
+A.sort()
 
 def find(t):
     left = 0
     right = len(A) - 1
-    min_idx = N
+    max_idx = -1
 
     while left <= right:
         mid = (left + right) // 2
-        if A[mid] >= t:
-            min_idx = min(min_idx, mid)
-            right = mid -1
+        if A[mid] <= t:
+            max_idx = max(max_idx, mid)
+            left = mid +1
 
         else:
-            left = mid + 1
-    return min_idx
+            right = mid - 1
+    return max_idx
 
 for a,b in targets:
     end = find(b)
     start = find(a)
-    ans = end - start
-    if end < N and A[end] == b or (start < N and A[start] == a):
-        ans += 1
-    print(ans)
+    print(end, start)
+    # ans = end - start
+    # if end < N and A[end] == b:
+    #     ans += 1
+    # print(ans)
