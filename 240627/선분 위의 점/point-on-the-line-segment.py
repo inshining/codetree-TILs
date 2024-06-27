@@ -21,6 +21,6 @@ for a,b in targets:
     end = find(b)
     start = find(a)
     ans = end - start
-    if end < N and A[end] == b:
+    if end < N and A[end] == b or (start < N and A[start] == a):
         ans += 1
     print(ans)
