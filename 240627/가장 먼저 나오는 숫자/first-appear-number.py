@@ -15,7 +15,10 @@ def find(t):
             right = mid - 1
         else:
             left = mid + 1
-    return min_idx + 1 if A[min_idx] == t else -1
+    ans = -1
+    if min_idx < N and A[min_idx] == t:
+        ans = min_idx + 1
+    return ans
 
 for t in targets:
     print(find(t))
