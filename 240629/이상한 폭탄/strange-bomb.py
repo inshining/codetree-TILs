@@ -12,6 +12,6 @@ for i in range(N-1, -1, -1):
 
 ans = -1
 for i in range(N):
-    if R[i] != -1:
+    if R[i] != -1 and R[i] - i <= K:
         ans = max(ans, nums[i])
 print(ans)
