@@ -5,10 +5,10 @@ count = [0] * (100001)
 
 j = 0
 ans = 0
-for i in range(N):
+for i in range(1,N+1):
     while j + 1 <= N and count[A[j+1]] < 1:
         count[A[j+1]] += 1
         j += 1
-    ans = max(ans, j-i + 1)
+    ans = max(ans, j-i+1)
     count[A[i]] -= 1
 print(ans)
