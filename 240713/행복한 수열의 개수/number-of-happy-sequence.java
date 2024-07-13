@@ -42,7 +42,7 @@ public class Main {
                     cnt = 1;
 
                 }
-                pre = board[i][j];
+                pre = board[j][i];
                 if (cnt >= M){
                     ans++;
                     break;
