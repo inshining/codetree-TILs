@@ -42,47 +42,24 @@ public class Main {
         r2 -= 1;
         c2 -= 1;
 
-        int[] upper = new int[c2-c1+1];
-        int[] right = new int[r2 - r1 -1];
-        int[] down = new int[c2-c1+1];
-        int[] left = new int[r2 - r1 -1];
+        int temp = board[r1][c1];
 
-        if (r2 -r1 - 1 <= 0){
-            noColum(r1, c1, r2, c2);
-            return;
-        }
-        // 임시로 옮기고 마지막 요소는 다른 쪽 첫번째로 가기 
-        for (int i = 0; i < c2 - c1; i++){
-            upper[i+1] = board[r1][c1+i];
-        }
-        right[0] = board[r1][c2];
-        
-        for (int i = 0; i < r2 - r1 -2; i++){
-            right[i+1] = board[r1+i][c2];
-        }
-        down[c2-c1] = board[r2-1][c2];
-        for (int i = 0; i < c2- c1; i++){
-            down[i] = board[r2][c1+i+1];
-        }
-        left[0] = board[r2][c1];
-        for (int i = 1; i < r2 - r1 -1; i++){
-            left[i] = board[r2-1-i][c1];
-        }
-        upper[0] = board[r1+1][c1];
-
-        for (int i = 0; i < c2-c1+1; i++){
-            board[r1][c1+i]  = upper[i];
-        }
-        for (int i = 0; i < r2 - r1 -1; i++){
-            board[r1+1+i][c2] = right[i];
-        }
-        for (int i = 0; i < c2-c1+1; i++){
-            board[r2][c1+i] = down[i];
+        for (int row = r1; row < r2; row++){
+            board[row][c1] = board[row+1][c1];
         }
 
-        for (int i = 0; i < r2 -r1 -1; i++){
-            board[r2-1-i][c1] = left[i];
+        for (int col = c1; col < c2; col++){
+            board[r2][col] = board[r2][col+1];
         }
+
+        for (int row = r2; row > r1; row--){
+            board[row][c2] = board[row-1][c2];
+        }
+
+        for (int col = c2; col > c1; col--){
+            board[r1][col] = board[r1][col-1];
+        }
+        board[r1][c1+1] = temp;
 
     }
 
