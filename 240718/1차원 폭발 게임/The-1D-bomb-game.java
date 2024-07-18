@@ -15,12 +15,12 @@ public class Main {
         for (int i =0; i < n; i++){
             arr[i] = sc.nextInt();
         }
-        int num;
+        boolean check;
         for (int i =0 ; i < n; i++){
 
-            num = bomb();
+            check = bomb();
 
-            if (num <= 0){
+            if (!check){
                 break;
             }
         }
@@ -43,45 +43,30 @@ public class Main {
         }
     }
 
-    public static int bomb(){
-        boolean[] check = new boolean[n];
-        int cnt = 0;
+    public static boolean bomb(){
+        boolean check = false;
         int idx = 0;
         while (idx < n){
-            cnt = 0;
+            int cnt = 0;
             if (arr[idx] == 0){
                 break;
             }
-            for (int j = idx; j < n; j++){
-                if (arr[idx] == arr[j]){
-                    cnt++;
-                } else{
-                    if (cnt >= m){
-                        for (int k =0; k < cnt; k++){
-                            check[idx+k] = true;
-                        }
-                    }
-                    cnt = 0;
-                    idx = j-1;
+            int endIdx = idx;
+            while (endIdx < n){
+                if (arr[idx] != arr[endIdx]){
                     break;
-                }
+                } 
+                endIdx++;
             }
-            if (cnt >= m){
-                for (int j = 1; j <= cnt; j++){
-                    check[n-j] = true;
+            if (endIdx - idx >= m){
+                for (int i = idx; i < endIdx; i++){
+                    arr[i] = 0;
                 }
-                idx += cnt -1;
+                check = true;
             }
-            idx++;
-        }     
+            idx = endIdx;
 
-        int ans = 0;
-        for (int i =0; i < n; i++){
-            if (check[i]){
-                ans++;
-                arr[i] = 0;
-            }
-        }
+        }     
 
         int temp[] = new int[n];
         idx = 0;
@@ -94,6 +79,6 @@ public class Main {
         
         arr = temp;
 
-        return ans;
+        return check;
     }
 }
