@@ -1,11 +1,12 @@
 import java.util.*;
 
 public class Main {
-    public static int n, r, c, ans, cnt;
+    public static int n, r, c, ans;
     public static char[][] board;
     public static int[] dy = {-1, 0, 1, 0};
     public static int[] dx = {0, 1, 0, -1};
     public static int dir = 1;
+    public static boolean[][][] visit;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -16,6 +17,7 @@ public class Main {
         c -= 1;
 
         board = new char[n][n];
+        visit = new boolean[n][n][4];
 
         for (int i =0; i < n; i++){
             String s = sc.next();
@@ -42,11 +44,11 @@ public class Main {
     }
 
     public static void go(int y, int x){
-        cnt++;
-        if (cnt >= 4 * n){
+        if (visit[y][x][dir]) {
             ans = -1;
             return;
         }
+        visit[y][x][dir] = true;
         // System.out.println(y + " " + x + " " +dir);
         int ny = y + dy[dir];
         int nx = x + dx[dir];
