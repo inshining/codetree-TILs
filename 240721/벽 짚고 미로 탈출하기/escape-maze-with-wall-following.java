@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-    public static int n, r, c, ans;
+    public static int n, r, c, ans, cnt;
     public static char[][] board;
     public static int[] dy = {-1, 0, 1, 0};
     public static int[] dx = {0, 1, 0, -1};
@@ -42,7 +42,8 @@ public class Main {
     }
 
     public static void go(int y, int x){
-        if (ans >= 4 * n){
+        cnt++;
+        if (cnt >= 4 * n){
             ans = -1;
             return;
         }
