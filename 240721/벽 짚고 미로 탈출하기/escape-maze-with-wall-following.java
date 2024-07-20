@@ -24,6 +24,17 @@ public class Main {
             }
         }
 
+        // for (int i =0 ; i < n ; i++){
+        //     for (int j =0 ; j < n; j++){
+        //         if (board[i][j] == '#'){
+        //             System.out.print(true + " ");
+        //         } else{
+        //             System.out.print(false + " ");
+        //         }
+        //     }
+        //     System.out.println();
+        // }
+
         go(r,c);
         System.out.println(ans);
 
@@ -35,7 +46,7 @@ public class Main {
             ans = -1;
             return;
         }
-
+        // System.out.println(y + " " + x + " " +dir);
         int ny = y + dy[dir];
         int nx = x + dx[dir];
 
@@ -49,7 +60,7 @@ public class Main {
             if ( dir < 0) {
                 dir = 3;
             } 
-            go(ny,nx);
+            go(y,x);
             return;
         }
 
