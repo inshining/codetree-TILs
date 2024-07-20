@@ -35,6 +35,7 @@ public class Main {
             ans = -1;
             return;
         }
+
         int ny = y + dy[dir];
         int nx = x + dx[dir];
 
@@ -44,13 +45,16 @@ public class Main {
         }
 
         if (board[ny][nx] == '#'){
-            dir -= 1;
-            dir %= 4;
+            dir = (dir - 1);
+            if ( dir < 0) {
+                dir = 3;
+            } 
             go(ny,nx);
             return;
         }
 
-        int right_dir = (dir +1 )%4;
+
+        int right_dir = (dir +1 ) % 4;
         if (board[ny + dy[right_dir]][nx + dx[right_dir]] == '#'){
             ans++;
             go(ny, nx);
