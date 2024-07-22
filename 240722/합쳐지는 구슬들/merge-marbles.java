@@ -77,7 +77,7 @@ public class Main {
             nx += 1;
         }
 
-        if (ny < 0 || n <= ny || nx < 0 || n <+ nx){
+        if (ny < 0 || n <= ny || nx < 0 || n <= nx){
             chageDir(idx);
             nextBoard[r][c] = idx;
             return;
