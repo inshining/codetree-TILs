@@ -42,9 +42,12 @@ public class Main {
             // for (int idx =1 ; idx <= m; idx++){
             //     System.out.println(Arrays.toString(marbles[idx]));
             // }
+            // System.out.println();
+
             // for (int k =0 ; k < n; k++){
             // System.out.println(Arrays.toString(nextBoard[k]));
             // }
+            // System.out.println();
         }
 
         int cnt = 0;
@@ -79,23 +82,17 @@ public class Main {
 
         if (ny < 0 || n <= ny || nx < 0 || n <= nx){
             chageDir(idx);
-            nextBoard[r][c] = idx;
+            mark(idx, r, c);
+            // nextBoard[r][c] = idx;
             return;
         }
 
-        if (nextBoard[ny][nx] > 0){
-            int other = nextBoard[ny][nx];
-            int winner = collis(idx, other);
-            nextBoard[ny][nx] = winner;
-        } else{
-            nextBoard[ny][nx] = idx;
-        }
+        mark(idx, ny, nx);
     }
 
     public static int collis(int idx, int other){
         int winner = Math.max(idx, other);
         int loser = Math.min(idx, other);
-
         marbles[loser][0] = -1;
         marbles[loser][1] = -1;
 
@@ -121,5 +118,15 @@ public class Main {
         marbles[idx][0] = y;
         marbles[idx][1] = x;
         
+    }
+
+    public static void mark(int idx, int ny, int nx){
+        if (nextBoard[ny][nx] > 0){
+            int other = nextBoard[ny][nx];
+            int winner = collis(idx, other);
+            nextBoard[ny][nx] = winner;
+        } else{
+            nextBoard[ny][nx] = idx;
+        }
     }
 }
