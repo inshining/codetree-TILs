@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
     public static int n, m, ans;
     public static int[][] board;
+    public static boolean[][] visit;
     public static void main(String[] args) {
         // 여기에 코드를 작성해주세요.
         Scanner sc = new Scanner(System.in);
@@ -10,6 +11,7 @@ public class Main {
         m = sc.nextInt();
 
         board = new int[n][m];
+        visit = new boolean[n][m];
 
         for (int i =0 ; i <n;i++){
             for (int j = 0; j < m; j++){
@@ -22,6 +24,7 @@ public class Main {
     }
 
     public static void go(int y, int x ){
+        visit[y][x] = true;
         if (y == n -1 && x == m-1){
             ans = 1;
             return;
@@ -31,11 +34,11 @@ public class Main {
             return;
         }
 
-        if (x+1 < m && board[y][x+1] == 1){
+        if (x+1 < m && board[y][x+1] == 1 && !visit[y][x+1]){
             go(y, x+1);
         }
 
-        if (y+1 < n && board[y+1][x] == 1){
+        if (y+1 < n && board[y+1][x] == 1 && !visit[y+1][x]){
             go(y+1, x);
         }
     }
