@@ -27,6 +27,10 @@ public class Main {
             return;
         }
 
+        if (ans == 1){
+            return;
+        }
+
         if (x+1 < m && board[y][x+1] == 1){
             go(y, x+1);
         }
