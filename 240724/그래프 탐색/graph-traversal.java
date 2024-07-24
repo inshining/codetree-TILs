@@ -26,7 +26,8 @@ public class Main {
         for (int i =1; i <= n; i++){
             if (visit[i]) ans++;
         }
-        System.out.println(ans-1);
+        if (ans > 0) ans--;
+        System.out.println(ans);
 
     }
 
