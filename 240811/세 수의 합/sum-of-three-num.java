@@ -42,7 +42,7 @@ public class Main {
                 if(freq.containsKey(k - arr[i] - arr[j]))
                     ans += freq.get(k - arr[i] - arr[j]);
                 
-                System.out.println(freq);
+                // System.out.println(freq);
             }
         }
 
