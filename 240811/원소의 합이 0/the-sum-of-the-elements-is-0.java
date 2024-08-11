@@ -41,25 +41,17 @@ public class Main {
             }
         }
 
+        long ans = 0;
+
         for (int i = 0; i < n; i++){
             for (int j = 0; j < n; j++){
-                int v = m2.getOrDefault(c[i] + d[j], 0);
-                m2.put(c[i] + d[j], v + 1);
+                int diff = - c[i] - d[j];
+                if (m1.getOrDefault(diff, 0) > 0)
+                    ans += m1.get(diff);
             }
         }
 
-        for (int k1 : m1.keySet()){
-            for (int k2 : m2.keySet()){
-                int v1 = m1.get(k1);
-                int v2 = m2.get(k2);
-
-                int sum = k1 + k2;
-                int v = m3.getOrDefault(sum, 0);
-                m3.put(sum, v + (v1 * v2));
-            }
-        }
-
-        System.out.println(m3.getOrDefault(0, 0));
+        System.out.println(ans);
         
 
 
