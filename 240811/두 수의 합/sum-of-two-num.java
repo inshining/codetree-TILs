@@ -17,7 +17,13 @@ public class Main {
         int ans = 0;
         for (int key : map.keySet()){
             int v = map.get(key);
-            v *= map.getOrDefault(k - key, 0);
+            
+            int pair = map.getOrDefault(k - key, 0);
+            if (k - key == key){
+                v *= (pair - 1);
+            } else{
+                v *= pair;
+            }
             ans += v;
         }
         ans /= 2;
