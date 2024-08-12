@@ -21,8 +21,8 @@ public class Main {
 
         }
         int ans = 0;
-        for (int v : map.values()){
-            ans += v;
+        for (int k : map.keySet()){
+            ans += map.get(k);
         }
         // int ans = map.values().stream().sum();
         System.out.println(ans);
