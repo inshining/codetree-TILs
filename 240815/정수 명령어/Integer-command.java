@@ -4,11 +4,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        TreeSet<Integer> t = new TreeSet<>();
 
         int testcase = sc.nextInt();
 
         for (int i = 0; i < testcase; i++){
+            TreeSet<Integer> t = new TreeSet<>();
+
             int n = sc.nextInt();
 
             for (int j =0; j < n; j++){
