@@ -17,6 +17,9 @@ public class Main {
         int v = t.last();
         for (int i = 0; i < k; i++){
             System.out.print(v + " ");
+            if (t.lower(v) == null){
+                break;
+            }
             v = t.lower(v);
         }
     }
