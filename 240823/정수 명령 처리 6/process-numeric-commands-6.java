@@ -13,11 +13,11 @@ public class Main {
 
             if (s.equals("push")){
                 int a = sc.nextInt();
-                pq.add(a);
+                pq.add(-a);
             } else if(s.equals("pop")){
                 if (!pq.isEmpty()){
                     int k = pq.poll();
-                    System.out.println(k);
+                    System.out.println(-k);
                 }
             } else if(s.equals("size")){
                 System.out.println(pq.size());
