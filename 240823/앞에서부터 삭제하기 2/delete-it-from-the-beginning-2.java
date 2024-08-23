@@ -18,12 +18,11 @@ public class Main {
         double ans = 0;
         int total = arr[n-1] + arr[n-2];
         for (int i = n-3; i >= 0; i--){
-            int k = pq.poll();
-            total -= k;
-            double temp = (double) (total / pq.size());
+            int k = pq.peek();
+            // total -= k;
+            double temp = (double) (total - k) / (pq.size() - 1);
             ans = Math.max(ans, temp);
-            total += k;
-            pq.offer(k);
+            // total += k;
             pq.offer(arr[i]);
             total += arr[i];
         }
