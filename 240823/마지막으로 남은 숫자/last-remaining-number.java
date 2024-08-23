@@ -19,12 +19,15 @@ public class Main  {
 
             if (x != y){
                 int k = x - y;
-                k = -k;
+                // k = -k;
                 pq.offer(k);
             }
         }
-
-        int k = pq.poll();
+        int k = 1;
+        if (!pq.isEmpty()){
+            k = pq.poll();
+        }
+        k = -k;
         System.out.println(k);
     }
 }
