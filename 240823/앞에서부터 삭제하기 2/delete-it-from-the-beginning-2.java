@@ -20,7 +20,8 @@ public class Main {
         for (int i = n-3; i >= 0; i--){
             int k = pq.poll();
             total -= k;
-            ans = Math.max(ans, (total / pq.size()));
+            double temp = (double) (total / pq.size());
+            ans = Math.max(ans, temp);
             total += k;
             pq.offer(k);
             pq.offer(arr[i]);
