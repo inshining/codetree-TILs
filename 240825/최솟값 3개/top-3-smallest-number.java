@@ -6,12 +6,13 @@ public class Main {
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        PriorityQueue<Integer> min = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Long> min = new PriorityQueue<>(Collections.reverseOrder());
 
         int n = sc.nextInt();
-        int ans = 1;
+        long ans = 1L;
         for (int i = 0; i < n; i++){
-            int k = sc.nextInt();
+            long k = (long) sc.nextInt();
+
             if (min.size() < 3){
                 min.add(k);
                 ans *= k;
@@ -23,7 +24,7 @@ public class Main {
                 }
             } else{
                 if (min.peek() > k){
-                    int a = min.poll();
+                    long a = min.poll();
                     ans /= a;
                     ans *= k;
                     min.add(k);
