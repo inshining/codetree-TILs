@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         PriorityQueue<Long> pq1 = new PriorityQueue<>();
-        PriorityQueue<Long> pq2 = new PriorityQueue<>();
+        PriorityQueue<Long> pq2 = new PriorityQueue<>(Collections.reverseOrder());
 
         int n = sc.nextInt();
 
