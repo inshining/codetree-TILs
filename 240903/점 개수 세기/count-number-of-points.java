@@ -25,7 +25,7 @@ public class Main {
             int b = sc.nextInt();
 
             int a2 = Integer.MIN_VALUE;
-            int b2 = Integer.MAX_VALUE;
+            int b2 = Integer.MIN_VALUE;
 
             if (t.floor(a) != null){
                 a2 = t.floor(a);
@@ -35,14 +35,16 @@ public class Main {
             }
 
             int f = 0;
-            int c = n;
+            int c = 0;
             if (a2 != Integer.MIN_VALUE){
                 f = hm.get(a2);
             }
 
-            if (b2 != Integer.MAX_VALUE){
+            if (b2 != Integer.MIN_VALUE){
                 c = hm.get(b2);
             }
+
+            // System.out.println(a2 + " " + b2 + " " + f + " " + c);
 
             int ans = c - f >= 0 ? c -f : 0;
             if (a == a2){
