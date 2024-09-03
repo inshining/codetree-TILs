@@ -44,7 +44,7 @@ public class Main {
                 c = hm.get(b2);
             }
 
-            int ans = c - f;
+            int ans = c - f >= 0 ? c -f : 0;
             if (a == a2){
                 ans++;
             }
