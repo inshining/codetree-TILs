@@ -1,16 +1,19 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
         TreeSet<Integer> t = new TreeSet<>();
 
-        int n = sc.nextInt();
-        int q = sc.nextInt();
+        int n = Integer.parseInt(st.nextToken()); 
+        int q = Integer.parseInt(st.nextToken()); 
+
+        st = new StringTokenizer(br.readLine());
 
         for (int i = 0; i< n; i++){
-            int k =  sc.nextInt();
+            int k =  Integer.parseInt(st.nextToken()); 
             t.add(k);
         }
         HashMap<Integer, Integer> hm = new HashMap<>();
@@ -20,9 +23,13 @@ public class Main {
             idx++;
         }
 
+
+
         for (int i = 0; i < q; i++){
-            int a = sc.nextInt();
-            int b = sc.nextInt();
+            st = new StringTokenizer(br.readLine());
+
+            int a = Integer.parseInt(st.nextToken()); 
+            int b = Integer.parseInt(st.nextToken()); 
 
             int a2 = Integer.MIN_VALUE;
             int b2 = Integer.MIN_VALUE;
