@@ -29,21 +29,17 @@ public class Main {
             int a = Integer.parseInt(st.nextToken()); 
             int b = Integer.parseInt(st.nextToken()); 
 
-            Integer a2 = Integer.MIN_VALUE;
-            Integer b2 = Integer.MIN_VALUE;
-            a2 = t.floor(a);
-            b2 = t.floor(b);
+            Integer a2 = t.floor(a);
+            Integer b2 = t.floor(b);
+            a2 = a2 != null ? a2 : Integer.MIN_VALUE;
+            b2 = b2 != null ? b2 : Integer.MIN_VALUE;
 
-            if (a2 != null){
-                a2 = t.floor(a);
-            } else{
-                a2 = Integer.MIN_VALUE;
-            }
-            if (b2 != null){
-                b2 = t.floor(b);
-            } else{
-                b2 = Integer.MIN_VALUE;
-            }
+            // if (a2 == null){
+            //     a2 = Integer.MIN_VALUE;
+            // }
+            // if (b2 == null){
+            //     b2 = Integer.MIN_VALUE;
+            // }
 
             int f = 0;
             int c = 0;
