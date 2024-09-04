@@ -26,10 +26,10 @@ public class Main {
                 R[i] += 1;
         }
 
-        int ans = 0;
+        long ans = 0;
         for (int i = 1; i < n-1; i++){
             if (s.charAt(i) == 'O')
-                ans += (L[i-1] * R[i+1]);
+                ans += (long) (L[i-1] * R[i+1]);
         }
         System.out.println(ans);
     }
