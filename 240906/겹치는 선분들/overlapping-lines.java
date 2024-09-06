@@ -56,22 +56,12 @@ public class Main {
             int x = points.get(i).x;
             int v = points.get(i).v;
 
-            if (v == 1){
-                sumVal++;
-            } else{
-                sumVal--;
-            }
 
-            // System.out.println(x + " " + sumVal);
-
-            if (v == 1 && sumVal == k){
-                start = x;
-                // System.out.println(x + " " +points.get(i+1).x + " " + (points.get(i+1).x - x));
-                // ans += points.get(i+1).x - x;
-                
-            } else if(v == -1 && sumVal == (k - 1)){
-                ans += (x - start);
+            if (sumVal >= k){
+                int preX = points.get(i-1).x;
+                ans += x - preX;
             }
+            sumVal += v;
         }
         System.out.println(ans);
     }
