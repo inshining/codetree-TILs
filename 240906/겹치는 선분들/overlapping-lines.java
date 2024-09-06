@@ -51,6 +51,7 @@ public class Main {
         int sumVal = 0;
         int ans = 0;
 
+        int start = 0;
         for (int i = 0; i < 2 * n; i++){
             int x = points.get(i).x;
             int v = points.get(i).v;
@@ -63,10 +64,13 @@ public class Main {
 
             // System.out.println(x + " " + sumVal);
 
-            if (v == 1 && sumVal >= k && i + 1 < 2 * n){
-                // System.out.println(x + " " + (points.get(i+1).x - x));
-                ans += points.get(i+1).x - x;
+            if (v == 1 && sumVal == k){
+                start = x;
+                // System.out.println(x + " " +points.get(i+1).x + " " + (points.get(i+1).x - x));
+                // ans += points.get(i+1).x - x;
                 
+            } else if(v == -1 && sumVal == (k - 1)){
+                ans += (x - start);
             }
         }
         System.out.println(ans);
