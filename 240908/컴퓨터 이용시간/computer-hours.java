@@ -60,10 +60,17 @@ public class Main {
             
         }
 
+        int[] arr = new int[n];
+
         for (int k : hs.keySet()){
             int v = hs.get(k);
             // System.out.println(k + " " + v);
-            System.out.print(v + " ");
+            arr[k] = v;
+            // System.out.print(v + " ");
+        }
+
+        for (int i = 0; i < n; i++){
+            System.out.print(arr[i] + " ");
         }
 
 
