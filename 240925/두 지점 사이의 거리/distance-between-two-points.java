@@ -30,7 +30,6 @@ public class Main {
         // }
 
         // System.out.println(maxDistance);
-        // scanner.close();
         Scanner sc = new Scanner(System.in);
         ArrayList<Long> l = new ArrayList<>();
 
@@ -38,10 +37,9 @@ public class Main {
         for (int i =0; i < n; i++){
             l.add(sc.nextLong());
         }
+        sc.close();
 
         ans = Long.MIN_VALUE;
-
-        // Collections.sort(l);
 
         arr = new ArrayList<>();
         arr.add(0L);
@@ -51,8 +49,6 @@ public class Main {
             arr.add(v);
         }
         total = arr.get(arr.size() - 1);
-        // System.out.println(arr);
-        // go(1);
         for (int i = 0; i < n; i++){
             for (int j = i+1; j < n; j++){
                 long v = arr.get(j) - arr.get(i); 
