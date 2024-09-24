@@ -25,7 +25,14 @@ public class Main {
         }
         total = arr.get(arr.size() - 1);
         // System.out.println(arr);
-        go(1);
+        // go(1);
+        for (int i = 0; i < n; i++){
+            for (int j = i+1; j < n; j++){
+                int v = arr.get(j) - arr.get(i); 
+                int min = Math.min(v, total - v);
+                ans = Math.max(ans, min);
+            }
+        }
         System.out.println(ans);
     }
 
@@ -34,9 +41,7 @@ public class Main {
             return;
 
         for (int i = 0; i < arr.size() - dis; i++){
-            int v = arr.get(i + dis) - arr.get(i); 
-            int min = Math.min(v, total - v);
-            ans = Math.max(ans, min);
+ 
         }
 
         go(dis+1);
