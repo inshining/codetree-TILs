@@ -41,7 +41,7 @@ public class Main {
 
         ans = Long.MIN_VALUE;
 
-        Collections.sort(l);
+        // Collections.sort(l);
 
         arr = new ArrayList<>();
         arr.add(0L);
@@ -61,16 +61,5 @@ public class Main {
             }
         }
         System.out.println(ans);
-    }
-
-    public static void go(int dis){
-        if (dis >= n)
-            return;
-
-        for (int i = 0; i < arr.size() - dis; i++){
- 
-        }
-
-        go(dis+1);
     }
 }
