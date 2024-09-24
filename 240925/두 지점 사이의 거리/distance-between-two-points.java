@@ -38,7 +38,6 @@ public class Main {
         for (int i =0; i < n; i++){
             l[i] = sc.nextLong();
         }
-        sc.close();
 
         ans = Long.MIN_VALUE;
 
@@ -52,10 +51,13 @@ public class Main {
         for (int i = 0; i < n; i++){
             for (int j = i+1; j < n; j++){
                 long v = arr[j] - arr[i]; 
-                long min = Math.min(v, total - v);
+                long counter = total - v;
+                long min = Math.min(v, counter);
                 ans = Math.max(ans, min);
             }
         }
         System.out.println(ans);
+        sc.close();
+
     }
 }
