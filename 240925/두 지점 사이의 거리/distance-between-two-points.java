@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Main {
-    public static long ans, total, n;
-    public static ArrayList<Long> arr;
+    public static long ans, total;
+    public static long[] arr;
     public static void main(String[] args) {
         // Scanner scanner = new Scanner(System.in);
         // int n = scanner.nextInt();
@@ -31,27 +31,27 @@ public class Main {
 
         // System.out.println(maxDistance);
         Scanner sc = new Scanner(System.in);
-        ArrayList<Long> l = new ArrayList<>();
 
-        n = sc.nextLong();
+        int n = sc.nextInt();
+        long[] l = new long[n];
+
         for (int i =0; i < n; i++){
-            l.add(sc.nextLong());
+            l[i] = sc.nextLong();
         }
         sc.close();
 
         ans = Long.MIN_VALUE;
 
-        arr = new ArrayList<>();
-        arr.add(0L);
+        arr = new long[n+1];
+        arr[0] = 0L;
 
-        for (int i = 0; i < n; i++){
-            long v = arr.get(arr.size() - 1) + l.get(i);
-            arr.add(v);
+        for (int i = 1; i <= n; i++){
+            arr[i] = l[i-1] + arr[i-1];
         }
-        total = arr.get(arr.size() - 1);
+        total = arr[n];
         for (int i = 0; i < n; i++){
             for (int j = i+1; j < n; j++){
-                long v = arr.get(j) - arr.get(i); 
+                long v = arr[j] - arr[i]; 
                 long min = Math.min(v, total - v);
                 ans = Math.max(ans, min);
             }
