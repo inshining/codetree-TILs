@@ -4,32 +4,6 @@ public class Main {
     public static long ans, total;
     public static long[] arr;
     public static void main(String[] args) {
-        // Scanner scanner = new Scanner(System.in);
-        // int n = scanner.nextInt();
-        // long[] distances = new long[n];
-        // long totalDistance = 0;
-
-        // for (int i = 0; i < n; i++) {
-        //     distances[i] = scanner.nextLong();
-        //     totalDistance += distances[i];
-        // }
-
-        // long[] prefixSum = new long[n + 1];
-        // for (int i = 1; i <= n; i++) {
-        //     prefixSum[i] = prefixSum[i - 1] + distances[i - 1];
-        // }
-
-        // long maxDistance = 0;
-        // for (int i = 0; i < n; i++) {
-        //     for (int j = i + 1; j < n; j++) {
-        //         long clockwise = prefixSum[j] - prefixSum[i];
-        //         long counterClockwise = totalDistance - clockwise;
-        //         long distance = Math.min(clockwise, counterClockwise);
-        //         maxDistance = Math.max(maxDistance, distance);
-        //     }
-        // }
-
-        // System.out.println(maxDistance);
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
@@ -48,14 +22,28 @@ public class Main {
             arr[i] = l[i-1] + arr[i-1];
         }
         total = arr[n];
-        for (int i = 0; i < n; i++){
-            for (int j = i+1; j < n; j++){
-                long v = arr[j] - arr[i]; 
-                long counter = total - v;
-                long min = Math.min(v, counter);
-                ans = Math.max(ans, min);
+        int start = 0;
+        int end = 0;
+
+        while (end <= n && start <= end){
+            long v = arr[end] - arr[start];
+            long other = total - v;
+            if (v < other){
+                ans = Math.max(ans, v);
+                end++;
+            } else{
+                ans = Math.max(ans, other);
+                start++;
             }
         }
+        // for (int i = 0; i < n; i++){
+        //     for (int j = i+1; j < n; j++){
+        //         long v = arr[j] - arr[i]; 
+        //         long counter = total - v;
+        //         long min = Math.min(v, counter);
+        //         ans = Math.max(ans, min);
+        //     }
+        // }
         System.out.println(ans);
         // sc.close();
     }
