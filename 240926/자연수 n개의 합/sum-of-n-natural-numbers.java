@@ -7,13 +7,14 @@ public class Main {
         long s = sc.nextLong();
 
         long left = 1;
-        long right = s / 2;
+        long right = 2000000000;
         long ans =1;
         while (left <= right){
             long mid = (left + right) / 2;
-            if (mid * (mid + 1) / 2 <= s){
+            if ((mid * (mid + 1) / 2) <= s){
                 left = mid + 1;
                 ans = Math.max(ans, mid);
+                // System.out.println( ans);
             } else
                 right = mid - 1;
         }
