@@ -25,6 +25,16 @@ public class Main {
 			//System.out.println(map);
 			//System.out.println();
 		}
+
+//		int cycle = 3;
+//		int d = 2;
+//		if(cycle < 0) {
+//			cycle = Math.abs(cycle) % 4;
+//			for(int i =0; i < cycle; i++) {
+//				d -= 1;
+//				d = d % 4;
+//			}
+//		}
 		
 		System.out.println(answer);
 		
@@ -72,6 +82,7 @@ public class Main {
 			for(int i =0; i < cycle; i++) {
 				d -= 1;
 				d %= 4;
+				if (d < 0) d += 4;
 			}
 		} else {
 			for(int i =0; i < cycle; i++) {
