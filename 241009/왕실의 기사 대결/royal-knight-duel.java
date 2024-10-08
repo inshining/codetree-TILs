@@ -37,20 +37,19 @@ public class Main {
 		for(int i =0; i < Q; i++) {
 			int id = sc.nextInt();
 			int d = sc.nextInt();
-			List<Integer> list = bfs(id, d);
+			Set<Integer> set = bfs(id, d);
 			
-			if(list.size() == 1 && list.get(0) == -1) continue;
+			if(set.size() == 1 && set.contains(-1)) continue;
 			
 			knights[id][0] += dy[d];
 			knights[id][1] += dx[d];
 			
-			for(int j = 0; j < list.size(); j++) {
-				int idx = list.get(j);
+			for(int idx : set) {
 				knights[idx][0] += dy[d];
 				knights[idx][1] += dx[d];
 			}
 			
-			delete(list);
+			delete(set);
 			
 
 		}
@@ -65,9 +64,8 @@ public class Main {
 		
 	}
 	
-	static void delete(List<Integer> list) {
-		for(int i = 0; i < list.size(); i++) {
-			int idx = list.get(i);
+	static void delete(Set<Integer> list) {
+		for(int idx : list) {
 			int[] knight = knights[idx];
 			int r = knight[0];
 			int c = knight[1];
@@ -85,7 +83,7 @@ public class Main {
 		}
 	}
 	
-	static List<Integer> bfs(int id, int d){
+	static Set<Integer> bfs(int id, int d){
 		int[][] map = new int[L+1][L+1];
 		for(int i = 1; i <= N; i++) {
 			int[] knight = knights[i];
@@ -102,7 +100,7 @@ public class Main {
 			}
 		}
 		
-		List<Integer> result = new ArrayList<>();
+		Set<Integer> result = new HashSet<>();
 		
 		Deque<int[]> q = new ArrayDeque<>();
 		List<int[]> l = getCan(id, d);
@@ -119,6 +117,8 @@ public class Main {
 				result.add(-1);
 				return result;
 			};
+			
+			if(result.contains(map[y][x])) continue;
 
 			if(map[y][x] > 0) {
 				int idx = map[y][x];
