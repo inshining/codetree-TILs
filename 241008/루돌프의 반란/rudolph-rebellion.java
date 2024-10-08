@@ -52,7 +52,7 @@ public class Main {
 //			for(int i = 1; i <= P; i++) {
 //				System.out.print(scores[i] + " ");
 //			}
-			System.out.println();
+			//System.out.println();
 			Turn++;
 		}
 		for(int i = 1; i <= P; i++) {
