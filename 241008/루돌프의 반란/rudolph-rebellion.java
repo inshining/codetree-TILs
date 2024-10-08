@@ -1,6 +1,7 @@
 import java.util.*;
 public class Main {
 	static Santa[] santas;
+	static int[] scores;
 	static int N, M, P, C, D, Turn;
 	static Roo roo;
 	static int[] dy = {-1, -1, 0, 1, 1, 1, 0, -1};
@@ -19,6 +20,8 @@ public class Main {
 		roo = new Roo(r,c);
 		
 		santas = new Santa[P+1];
+		scores = new int[P+1];
+		
 		for(int i =0; i < P; i++) {
 			p = sc.nextInt();
 			r = sc.nextInt();
@@ -27,25 +30,105 @@ public class Main {
 			santas[p] = new Santa(r,c);
 		}
 		
-		int closedS = findCloseSanta();
-		moveRoo(closedS);
-		moveSanta();
-		System.out.println(roo);
+		while(Turn < M) {	
+			int closedS = findCloseSanta();
+			int dRoo = moveRoo(closedS);
+			for(int i =1; i <= P; i++) {
+				conflict(i, dRoo, C);
+			}
+			int[] dirs = moveSanta();
+			for(int i = 1; i <= P; i++) {
+				int reversedD = (dirs[i] + 4) % 8;
+				conflict(i, reversedD, D);
+			}
+			scoreAfterTurn();
+			//System.out.println(roo);
+			//for(int i =1; i <= P; i++) {
+			//	System.out.println(santas[i]);
+			//}
+			//System.out.println(Arrays.toString(scores));
+			//System.out.println();
+			Turn++;
+		}
+		System.out.println(Arrays.toString(scores).replaceAll("[\\[\\],]", ""));
+
+	}
+	
+	static void scoreAfterTurn() {
 		for(int i =1; i <= P; i++) {
-			System.out.println(santas[i]);
+			if(santas[i].out) continue;
+			scores[i]++;
 		}
 	}
 	
-	static void moveSanta() {
+	static void conflict(int id, int dir, int V) {
+		if(dir < 0) return;
+		Santa santa = santas[id];
+		if(santa.r == roo.r && santa.c == roo.c) {
+			scores[id] += V;
+			moveOneSanta(id, dir, V);
+			int other = meet(id);
+			if(other < 0) return;
+			interaction(id, other, dir);
+		}
+	}
+	
+	static void interaction(int p1, int p2, int d) {
+		Santa santa1 = santas[p1];
+		Santa santa2 = santas[p2];
+
+		santa2.r += dy[d];
+		santa2.c += dx[d];
+		santas[p2] = santa2;
+		while(!out(santa2.r, santa2.c) && meet(p2) >= 0) {
+			int other = meet(p2);
+			santa2 = santas[other];
+			santa2.r += dy[d];
+			santa2.c += dx[d];
+			santas[other] = santa2;
+		}
+		if(out(santa2.r, santa2.c)) {
+			santa2.out = true;
+		}
+	}
+	
+	static int meet(int id) {
+		Santa santa = santas[id];
+		for(int i =1; i <= P; i++) {
+			if(id == i) continue;
+			if(santa.r == santas[i].r && santa.c == santas[i].c) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	static void moveOneSanta(int id, int d, int cycle) {
+		Santa santa = santas[id];
+		for(int i = 0; i < cycle; i++) {
+			santa.r += dy[d];
+			santa.c += dx[d];
+		}
+		
+		if(out(santa.r, santa.c)) {
+			santa.out = true;
+		}
+		santa.panic = Turn + 2;
+		santas[id] = santa;
+	}
+	
+	
+	static int[] moveSanta() {
 		Set<String> set = new HashSet<>();
 		for(int i =1; i <= P; i++) {
 			Santa santa =santas[i];
 			set.add(santa.r + "," + santa.c);
 		}
+		int[] dirs = new int[P+1];
 		for(int i =1; i <= P; i++) {
 			Santa santa = santas[i];
 			if(santa.out) continue;
-			if(santa.panic <= Turn) continue;
+			if(santa.panic > Turn) continue;
 			
 			int originDist = calDist(roo.r, roo.c, santa.r, santa.c);
 			int d = -1;
@@ -65,11 +148,17 @@ public class Main {
 				}
 			}
 			if(d >= 0) {
+				String s = new String(santa.r+ ","+ santa.c);
+				set.remove(s);
 				santa.r += dy[d];
 				santa.c += dx[d];
 				santas[i] = santa;
+				s = new String(santa.r+ ","+ santa.c);
+				set.add(s);
 			}
+			dirs[i] = d;
 		}
+		return dirs;
 	}
 	
 	static int findCloseSanta() {
@@ -92,7 +181,7 @@ public class Main {
 		return arr[3];
 	}
 	
-	static void moveRoo(int target) {
+	static int moveRoo(int target) {
 		Santa santa = santas[target];
 		
 		int d = -1;
@@ -107,10 +196,10 @@ public class Main {
 				d = i;
 			}
 		}
-		if(d < 0) return;
+		if(d < 0) return d;
 		roo.r += dy[d];
 		roo.c += dx[d];
-		
+		return d;
 	}
 	
 	static int calDist(int r1, int c1, int r2, int c2) {
