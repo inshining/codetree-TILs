@@ -49,6 +49,10 @@ public class Main {
 //			System.out.println(Arrays.toString(scores));
 //			System.out.println();
 			if(sur <= 0) break;
+//			for(int i = 1; i <= P; i++) {
+//				System.out.print(scores[i] + " ");
+//			}
+			System.out.println();
 			Turn++;
 		}
 		for(int i = 1; i <= P; i++) {
@@ -92,6 +96,7 @@ public class Main {
 			santa2.r += dy[d];
 			santa2.c += dx[d];
 			santas[other] = santa2;
+			p2 = other;
 		}
 		if(out(santa2.r, santa2.c)) {
 			santa2.out = true;
@@ -160,11 +165,9 @@ public class Main {
 				}
 			}
 			if(d >= 0) {
-				String s = new String(santa.r+ ","+ santa.c);
 				santa.r += dy[d];
 				santa.c += dx[d];
 				santas[i] = santa;
-				s = new String(santa.r+ ","+ santa.c);
 			}
 			dirs[i] = d;
 			int reversedD = (dirs[i] + 4) % 8;
