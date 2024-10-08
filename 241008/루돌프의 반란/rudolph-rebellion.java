@@ -37,24 +37,23 @@ public class Main {
 				conflict(i, dRoo, C);
 			}
 			int[] dirs = moveSanta();
-			for(int i = 1; i <= P; i++) {
-				int reversedD = (dirs[i] + 4) % 8;
-				conflict(i, reversedD, D);
-			}
+//			for(int i = 1; i <= P; i++) {
+//				int reversedD = (dirs[i] + 4) % 8;
+//				conflict(i, reversedD, D);
+//			}
 			int sur = scoreAfterTurn();
-			//System.out.println(roo);
-			//for(int i =1; i <= P; i++) {
-			//	System.out.println(santas[i]);
-			//}
-			//System.out.println(Arrays.toString(scores));
-			//System.out.println();
+//			System.out.println(roo);
+//			for(int i =1; i <= P; i++) {
+//				System.out.println(santas[i]);
+//			}
+//			System.out.println(Arrays.toString(scores));
+//			System.out.println();
 			if(sur <= 0) break;
 			Turn++;
 		}
 		for(int i = 1; i <= P; i++) {
 			System.out.print(scores[i] + " ");
 		}
-		//System.out.println(Arrays.toString(scores).replaceAll("[\\[\\],]", ""));
 
 	}
 	
@@ -110,6 +109,17 @@ public class Main {
 		return -1;
 	}
 	
+	static int meet(int id, int y, int x) {
+		Santa santa = santas[id];
+		for(int i =1; i <= P; i++) {
+			if(id == i) continue;
+			if(y == santas[i].r && x == santas[i].c) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	static void moveOneSanta(int id, int d, int cycle) {
 		Santa santa = santas[id];
 		for(int i = 0; i < cycle; i++) {
@@ -126,11 +136,6 @@ public class Main {
 	
 	
 	static int[] moveSanta() {
-		Set<String> set = new HashSet<>();
-		for(int i =1; i <= P; i++) {
-			Santa santa =santas[i];
-			set.add(santa.r + "," + santa.c);
-		}
 		int[] dirs = new int[P+1];
 		for(int i =1; i <= P; i++) {
 			Santa santa = santas[i];
@@ -144,8 +149,8 @@ public class Main {
 				int ny = santa.r + dy[j];
 				int nx = santa.c + dx[j];
 				if(out(ny,nx)) continue;
-				String s = new String(ny + "," + nx);
-				if(set.contains(s)) continue;
+				int other = meet(i, ny, nx);
+				if(other >= 0) continue;
 				int nextDist = calDist(roo.r, roo.c, ny, nx);
 				if(nextDist >= originDist) continue;
 				
@@ -156,14 +161,14 @@ public class Main {
 			}
 			if(d >= 0) {
 				String s = new String(santa.r+ ","+ santa.c);
-				set.remove(s);
 				santa.r += dy[d];
 				santa.c += dx[d];
 				santas[i] = santa;
 				s = new String(santa.r+ ","+ santa.c);
-				set.add(s);
 			}
 			dirs[i] = d;
+			int reversedD = (dirs[i] + 4) % 8;
+			conflict(i, reversedD, D);
 		}
 		return dirs;
 	}
