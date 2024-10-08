@@ -37,6 +37,11 @@ public class Main {
 		for(int i =0; i < Q; i++) {
 			int id = sc.nextInt();
 			int d = sc.nextInt();
+//			for(int idx = 1; idx <= N; idx++) {
+//				System.out.println(knights[idx][0] + " " + knights[idx][1]);
+//			}
+			//System.out.println();
+			if(knights[id][4] <= 0) continue;
 			Set<Integer> set = bfs(id, d);
 			
 			if(set.size() == 1 && set.contains(-1)) continue;
@@ -51,6 +56,7 @@ public class Main {
 			
 			delete(set);
 			
+
 
 		}
 
