@@ -50,7 +50,10 @@ public class Main {
 			//System.out.println();
 			Turn++;
 		}
-		System.out.println(Arrays.toString(scores).replaceAll("[\\[\\],]", ""));
+		for(int i = 1; i <= P; i++) {
+			System.out.print(scores[i] + " ");
+		}
+		//System.out.println(Arrays.toString(scores).replaceAll("[\\[\\],]", ""));
 
 	}
 	
