@@ -41,13 +41,14 @@ public class Main {
 				int reversedD = (dirs[i] + 4) % 8;
 				conflict(i, reversedD, D);
 			}
-			scoreAfterTurn();
+			int sur = scoreAfterTurn();
 			//System.out.println(roo);
 			//for(int i =1; i <= P; i++) {
 			//	System.out.println(santas[i]);
 			//}
 			//System.out.println(Arrays.toString(scores));
 			//System.out.println();
+			if(sur <= 0) break;
 			Turn++;
 		}
 		for(int i = 1; i <= P; i++) {
@@ -57,11 +58,14 @@ public class Main {
 
 	}
 	
-	static void scoreAfterTurn() {
+	static int scoreAfterTurn() {
+		int sur = 0;
 		for(int i =1; i <= P; i++) {
 			if(santas[i].out) continue;
 			scores[i]++;
+			sur++;
 		}
+		return sur;
 	}
 	
 	static void conflict(int id, int dir, int V) {
