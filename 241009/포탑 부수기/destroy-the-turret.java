@@ -1,10 +1,12 @@
 import java.util.*;
+
 public class Main {
 	public static int[][] history, board;
 	public static int N, M, K;
 	static boolean check;
 	static int[] dy = {0, 1, 0, -1};
 	static int[] dx = {1, 0, -1, 0};
+	static boolean[][] isActive;
 	public static void main (String[] args) {
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
@@ -13,52 +15,98 @@ public class Main {
 		
 		board = new int[N+1][M+1];
 		history = new int[N+1][M+1];
-		
+		isActive = new boolean[N+1][M+1];
+
 		for(int i = 1; i <= N; i++) {
 			for(int j = 1; j <= M; j++) {
 				board[i][j] = sc.nextInt();
 			}
 		}
 		
-		for(int i =0; i <= N; i++) {
-			System.out.println(Arrays.toString(board[i]));
+		for(int turn = 1; turn <= K; turn++) {
+			// Attacker selection
+			init();
+			List<Tower> list = new ArrayList<>();
+			for(int y =1; y <= N; y++) {
+				for(int x = 1; x <= M; x++) {
+					if(board[y][x] <= 0) continue;
+					Tower t = new Tower(board[y][x], y, x, history[y][x]);
+					list.add(t);
+				}
+			}
+			Collections.sort(list);
+			Tower attack = list.get(0);
+			board[attack.y][attack.x] += N+M;
+			attack.power += N+M;
+			history[attack.y][attack.x] = turn;
+			
+			Tower defender = list.get(list.size()-1);
+			for(int i = list.size() -1; i >= 0; i--) {
+				defender = list.get(i);
+				if(defender.y != attack.y || defender.x != attack.x) break;
+			}
+			
+			boolean isLaser = laserAttack(attack.y, attack.x, defender.y, defender.x);
+			if(!isLaser) {
+				bomb(attack.y, attack.x, defender.y, defender.x);
+			}
+			
+			// heal
+			for(int i = 1; i <= N; i++) {
+				for(int j = 1; j  <= M; j++) {
+					if(board[i][j] <= 0) continue;
+					if(i == attack.y && j == attack.x) continue;
+					if(isActive[i][j]) continue;
+					board[i][j] += 1;
+				}
+			}
+//			print(board);
+
 		}
 		
-		// Attacker selection
-		List<Tower> list = new ArrayList<>();
-		for(int y =1; y <= N; y++) {
-			for(int x = 1; x <= M; x++) {
-				if(board[y][x] <= 0) continue;
-				Tower t = new Tower(board[y][x], y, x, history[y][x]);
-				list.add(t);
+		int ans = 0;
+		for(int i = 1; i <= N; i++) {
+			for(int j = 1; j <= M; j++) {
+				ans = Math.max(ans, board[i][j]);
 			}
 		}
-//		if(list.size() <= 1) break;
-		Collections.sort(list);
-		Tower attack = list.get(0);
-		board[attack.y][attack.x] += N+M;
-		attack.power += N+M;
-		
-		Tower defender = list.get(list.size()-1);
-		for(int i = list.size() -1; i >= 0; i--) {
-			defender = list.get(i);
-			if(defender.y != attack.y || defender.x != attack.x) break;
-		}
-		
-		List<Pair> route = searchRoute(attack.y, attack.x, defender.y, defender.x);
-		
-		System.out.println(route);
-		
-		System.out.println(defender);
-
+		System.out.println(ans);
 	}
 	
-	static List<Pair> searchRoute(int r, int c, int ty, int tx) {
-		int[][] visit = new int[N+1][M+1];
+	static void bomb(int r, int c, int ty, int tx) {
+		int[] dy2 = {-1, -1, 0, 1, 1, 1, 0, -1};
+		int[] dx2 = {0, 1, 1, 1, 0, -1, -1, -1};
+		int power = board[r][c];
+		board[ty][tx] -= power;
+		isActive[ty][tx] = true;
+		
+		for(int i = 0; i < 8; i++) {
+			int ny = ty + dy2[i];
+			int nx = tx + dx2[i];
+			if(out(ny,nx)) {
+				Pair nextP = over(ny,nx);
+				ny = nextP.y;
+				nx = nextP.x;
+			}
+			if(board[ny][nx] <= 0) continue;
+			if(ny == r && nx == c) continue;
+			board[ny][nx] -= (power / 2);
+			if(board[ny][nx] <= 0) board[ny][nx] = 0;
+			isActive[ny][nx] = true;
+		}
+		
+	}
+	
+	static boolean laserAttack(int r, int c, int ty, int tx) {
+		boolean[][] visit = new boolean[N+1][M+1];
+		int[][] backY = new int[N+1][M+1];
+		int[][] backX = new int[N+1][M+1];
+		
 		Deque<Pair> q = new ArrayDeque<>();
 		
 		q.offer(new Pair(r,c));
-		visit[r][c] =1;
+		visit[r][c] = true;
+		boolean isPossible = false;
 		
 		while(!q.isEmpty()) {
 			Pair p = q.poll();
@@ -67,6 +115,7 @@ public class Main {
 			int x= p.x;
 			
 			if(y == ty && x == tx) {
+				isPossible = true;
 				break;
 			}
 			
@@ -79,42 +128,37 @@ public class Main {
 					ny = nextP.y;
 					nx = nextP.x;
 				}
-				if(board[ny][nx] == 0) continue;
-				if(visit[ny][nx] > 0) continue;
-				visit[ny][nx] = visit[y][x] + 1;
+				if(board[ny][nx] <= 0) continue;
+				if(visit[ny][nx]) continue;
+				visit[ny][nx] = true;
+				backY[ny][nx] = y;
+				backX[ny][nx] = x;
+				
 				q.offer(new Pair(ny,nx));
 			}
-			print(visit);
-			System.out.println();
 		}
-		if(visit[ty][tx] == 0) return new ArrayList<>();
 		
-		List<Pair> route = new ArrayList<>();
-		q = new ArrayDeque<>();
-		q.offer(new Pair(ty,tx));
-		
-		while(!q.isEmpty()) {
-			Pair p = q.poll();
-			int y=p.y;
-			int x= p.x;
-			for(int i = 0; i < 4; i++) {
-				int ny = y + dy[i];
-				int nx = x + dx[i];
-				if(out(ny,nx)) {
-					Pair nextP = over(ny,nx);
-					ny = nextP.y;
-					nx = nextP.x;
-				}
-				if(board[ny][nx] == 0) continue;
-				if(visit[ny][nx] == visit[y][x] -1) {
-					if(visit[ny][nx] == 1) break;
-					Pair nP = new Pair(ny,nx);
-					route.add(nP);
-					q.offer(nP);
-				}
+		if(isPossible) {
+			board[ty][tx] -= board[r][c];
+			if(board[ty][tx] <= 0) board[ty][tx] = 0;
+			isActive[ty][tx] = true;
+			
+			int ey = backY[ty][tx];
+			int ex = backX[ty][tx];
+			
+			while (!(ey == r && ex == c)) {
+				board[ey][ex] -= (board[r][c] / 2);
+				if(board[ey][ex] <= 0) board[ey][ex] = 0;
+				isActive[ey][ex] = true;
+				
+				int nextY = backY[ey][ex];
+				int nextX = backX[ey][ex];
+				ey = nextY;
+				ex = nextX;
+				
 			}
 		}
-		return route;
+		return isPossible;
 		
 	}
 	
@@ -144,6 +188,14 @@ public class Main {
 			nx = M;
 		}
 		return new Pair(ny,nx);
+	}
+	
+	static void init() {
+		for(int i = 0; i <= N; i++) {
+			for(int j = 0; j <= M; j++) {
+				isActive[i][j] = false;
+			}
+		}
 	}
 }
 
