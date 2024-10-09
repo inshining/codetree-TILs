@@ -25,6 +25,7 @@ public class Main {
 		
 		for(int turn = 1; turn <= K; turn++) {
 			// Attacker selection
+
 			init();
 			List<Tower> list = new ArrayList<>();
 			for(int y =1; y <= N; y++) {
@@ -33,6 +34,9 @@ public class Main {
 					Tower t = new Tower(board[y][x], y, x, history[y][x]);
 					list.add(t);
 				}
+			}
+			if(list.size() <= 1) {
+				break;
 			}
 			Collections.sort(list);
 			Tower attack = list.get(0);
@@ -50,6 +54,12 @@ public class Main {
 			if(!isLaser) {
 				bomb(attack.y, attack.x, defender.y, defender.x);
 			}
+			for(int i = 1; i <= N; i++) {
+				for(int j = 1; j  <= M; j++) {
+					if(board[i][j] <= 0) board[i][j] = 0;
+				}
+			}
+			
 			
 			// heal
 			for(int i = 1; i <= N; i++) {
@@ -60,6 +70,7 @@ public class Main {
 					board[i][j] += 1;
 				}
 			}
+//			System.out.println(turn);
 //			print(board);
 
 		}
