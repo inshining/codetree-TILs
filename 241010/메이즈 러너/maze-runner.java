@@ -3,6 +3,8 @@ import java.util.*;
 public class Main {
 	static int N, M, K;
 	static int[][] board;
+	static int[][] nextBoard = new int[11][11];
+
 	static int[] score;
 	static int[] exit;
 	static boolean[] isExit;
@@ -40,26 +42,32 @@ public class Main {
 		
 		for(int turn = 0; turn < K; turn++) {
 			int numExit = 0;
+			if(turn == 44) {
+				
+			}
+			for(int i =0; i< M; i++) {
+				if(isExit[i]) continue;
+				move(i);
+			}
 			for(int i =0; i< M; i++) {
 				if(isExit[i]) numExit++;
-				else move(i);
 			}
 			if(numExit == M) break;
 			rotate();
+//			System.out.println(turn);
+//			System.out.println(Arrays.toString(isExit));
 //			System.out.println(Arrays.toString(score));
 //			System.out.println(Arrays.toString(exit));
-
+//			print(pos);
+//			print(board);
 		}
-//		print(pos);
-//		print(board);
+
 		int ans = 0;
 		for(int i =0; i<M; i++) {
 			ans += score[i];
 		}
 		System.out.println(ans);
-
 		System.out.println(exit[0] + " " + exit[1]);
-
 	}
 	
 	public static void rotate() {
@@ -67,57 +75,42 @@ public class Main {
 		int sy = arr[0];
 		int sx = arr[1];
 		int size = arr[2];
+		for(int y = sy; y < sy + size; y++) {
+			for(int x = sx; x < sx + size; x++) {
+				if(board[y][x] > 0) board[y][x]--;
+			}
+		}
+		for(int y = sy; y < sy + size; y++) {
+			for(int x = sx; x < sx + size; x++) {
+				int oy = y - sy, ox = x - sx;
+				int ry = ox, rx = size - oy - 1;
+				nextBoard[ry + sy][rx + sx] = board[y][x];
+			}
+		}
 		
+		for(int y = sy; y < sy + size; y++) {
+			for(int x = sx; x < sx + size; x++) {
+				board[y][x] = nextBoard[y][x];
+			}
+		}
 		for(int i = 0; i < M; i++) {
 			int y = pos[i][0];
-			int x =pos[i][1];
+			int x = pos[i][1];
 			if(sy <= y && y < sy + size && sx <= x && x < sx + size) {
-				board[y][x] = 10 + i;
+				int oy = y - sy, ox = x - sx;
+				int ry = ox, rx = size - oy - 1;
+				pos[i][0] = ry + sy;
+				pos[i][1] = rx + sx;
 			}
 		}
-		board[exit[0]][exit[1]] = -1;
-		
-		int[][] box = new int[size][size];
-		for(int i = 0; i < size; i++) {
-			for(int j =0; j < size; j++) {
-				box[i][j] = board[sy+i][sx+j];
-			}
-		}
-		
-		int[][] temp = new int[size][size];
-		
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				temp[j][size-1-i] = box[i][j];
-			}
-		}
-		
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				if(1 <= temp[i][j] && temp[i][j] < 10) temp[i][j]--;
-			}
-		}
-		
-		for(int i = 0; i < size; i++) {
-			for(int j =0; j < size; j++) {
-				board[sy+i][sx+j] = temp[i][j];
-			}
-		}
-		
-		for(int i = 0; i < size; i++) {
-			for(int j =0; j < size; j++) {
-				if (board[sy+i][sx+j] >= 10) {
-					int idx = board[sy+i][sx+j] - 10;
-					pos[idx][0] = sy + i;
-					pos[idx][1] = sx + j;
-					board[sy+i][sx+j] = 0;
-				} else if(board[sy+i][sx+j] == -1) {
-					exit[0] = sy + i;
-					exit[1] = sx + j;
-					board[sy+i][sx+j] = 0;
-				}
-			}
-		}				
+		int y = exit[0];
+		int x = exit[1];
+		if(sy <= y && y < sy + size && sx <= x && x < sx + size) {
+			int oy = y - sy, ox = x - sx;
+			int ry = ox, rx = size - oy - 1;
+			exit[0] = ry + sy;
+			exit[1] = rx + sx;
+		}			
 	}
 	
 	static void print(int[][] doubleArr) {
@@ -141,15 +134,26 @@ public class Main {
 		for(int size = 2; size <= N; size++) {
 			for(int sy = 1; sy <= N - size + 1; sy++) {
 				for(int sx = 1; sx <= N - size + 1; sx++) {
-					int num = 0;
-					boolean include = false;
-					for(int i = 0; i < size; i++) {
-						for(int j = 0; j < size; j++) {
-							if(map[sy+i][sx+j] == 1 ) num++;
-							if(map[sy+i][sx+j] == 2 ) include = true;
-						}
+//					int num = 0;
+//					boolean include = false;
+					int ey = sy + size - 1;
+					int ex = sx + size - 1;
+					if(!(sy <= exit[0] && exit[0] <= ey && sx <= exit[1] && exit[1] <= ex)) continue;
+					
+					boolean isRunner = false;
+					for(int i = 0; i < M; i++) {
+						if(isExit[i]) continue;
+						if(sy <= pos[i][0] && pos[i][0] <= ey && sx <= pos[i][1] && pos[i][1] <= ex) isRunner = true;
 					}
-					if(num > 0 && include) return new int[] {sy,sx, size};
+//					for(int i = 0; i < size; i++) {
+//						for(int j = 0; j < size; j++) {
+//							if(map[sy+i][sx+j] == 1 ) num++;
+//							if(map[sy+i][sx+j] == 2 ) include = true;
+//						}
+//					}
+//					if(num > 0 && include) return new int[] {sy,sx, size};
+					if(isRunner) return new int[] {sy,sx, size};
+
 				}
 			}
 		}
@@ -157,6 +161,7 @@ public class Main {
 	}
 		
 	static void move(int id) {
+		if(isExit[id]) return;
 		int y = pos[id][0];
 		int x = pos[id][1];
 		int originDist = calDist(y,x, exit[0], exit[1]);
@@ -177,6 +182,39 @@ public class Main {
 		
 		if(d == -1 || dist > originDist) return;
 		
+//		if(y != exit[0]) {
+//			int ny = pos[id][0];
+//			int nx = pos[id][1];
+//			
+//			if(exit[0] > ny) ny++;
+//			else ny--;
+//			
+//			if(board[ny][nx] == 0) {
+//				pos[id][0] = ny;
+//				pos[id][1] = nx;
+//				score[id]++;
+//				
+//				if(ny == exit[0] && nx == exit[1]) isExit[id] = true;
+//				return;
+//			}
+//		}
+//		
+//		if(x != exit[1]) {
+//			int ny = pos[id][0];
+//			int nx = pos[id][1];
+//			
+//			if(exit[1] > nx) nx++;
+//			else nx--;
+//			
+//			if(board[ny][nx] == 0) {
+//				pos[id][0] = ny;
+//				pos[id][1] = nx;
+//				score[id]++;
+//				if(ny == exit[0] && nx == exit[1]) isExit[id] = true;
+//				return;
+//			}
+//		}
+		
 		int ny = y + dy[d];
 		int nx = x + dx[d];
 		pos[id][0] = ny;
@@ -185,7 +223,6 @@ public class Main {
 			isExit[id] = true;
 		}
 		score[id]++;
-		// pos[id] = 
 	}
 	
 	static int calDist(int x1, int y1, int x2, int y2) {
