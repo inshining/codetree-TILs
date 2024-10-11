@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
 	static int N, M, K;
-	static List[][] board;
+	static ArrayList<Integer>[][] board;
 	static Player[] players;
 	
 	static int[] scores = new int[30];
@@ -17,7 +17,7 @@ public class Main {
 		K = sc.nextInt();
 		
 		players = new Player[M];
-		board = new List[N+1][N+1];
+		board = new ArrayList[N+1][N+1];
 		
 		for(int i = 0; i <= N; i++) {
 			for(int j = 0; j<=N; j++) {
@@ -41,7 +41,12 @@ public class Main {
 		}
 		
 		for(int turn = 0; turn < K; turn++) {
+//			for(int i = 0; i < M; i++) {
+//				System.out.println(players[i]);
+//			}	
+
 			for(int i =0; i < M; i++) {
+
 				move(i);
 				int other = isMeet(i);
 				if(other >= 0) {
@@ -52,10 +57,17 @@ public class Main {
 					changeGun(i);
 				}
 			}
+//			for(int i = 0; i < M; i++) {
+//				System.out.print(scores[i] + " ");
+//			}
+//			System.out.println();
 		}
-	
-		
-
+//		for(int i = 0; i < M; i++) {
+//			System.out.println(players[i]);
+//		}
+//		for(int i = 1; i <= N; i++) {
+//			System.out.println(Arrays.toString(board[i]));
+//		}
 		//System.out.println(Arrays.toString(scores));
 		for(int i = 0; i < M; i++) {
 			System.out.print(scores[i] + " ");
@@ -126,9 +138,8 @@ public class Main {
 		int r = players[id].r;
 		int c= players[id].c;
 		int preGun = players[id].dropGun();
-		if(preGun >0) {
-			board[r][c].add(preGun);
-		}
+		board[r][c].add(preGun);
+		
 	}
 	
 	static void changeGun(int id) {
@@ -138,10 +149,10 @@ public class Main {
 		int c= players[id].c;
 		
 		if(board[r][c].size() > 0) {
-			int k = (int) Collections.max(board[r][c]);
-			for(int i =0; i < board[r][c].size(); i++) {
-				if(k == (int) board[r][c].get(i)) board[r][c].remove(i);
-			}
+			Collections.sort(board[r][c]);
+			
+			int k = board[r][c].get(board[r][c].size() -1);
+			board[r][c].remove(board[r][c].size() -1);
 			players[id].gun = k;
 		}
 	}
