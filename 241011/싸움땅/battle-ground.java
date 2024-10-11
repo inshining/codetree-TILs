@@ -40,21 +40,22 @@ public class Main {
 			players[i] = new Player(y,x,d,s);
 		}
 		
-		for(int i =0; i < M; i++) {
-			move(i);
-			int other = isMeet(i);
-			if(other >= 0) {
-				//싸
-				battle(i, other);
-			} else {
-				//총교
-				changeGun(i);
+		for(int turn = 0; turn < K; turn++) {
+			for(int i =0; i < M; i++) {
+				move(i);
+				int other = isMeet(i);
+				if(other >= 0) {
+					//싸
+					battle(i, other);
+				} else {
+					//총교
+					changeGun(i);
+				}
 			}
 		}
+	
 		
-//		for(int i = 0; i < M; i++) {
-//			System.out.println(players[i]);
-//		}
+
 		//System.out.println(Arrays.toString(scores));
 		for(int i = 0; i < M; i++) {
 			System.out.print(scores[i] + " ");
