@@ -110,9 +110,12 @@ public class Main {
 	
 	static Move findCamp(int y, int x) {
 		int[][] visit = new int[N][N];
-		
+//		
+//		for(int i = 0; i < N; i++) {
+//			Arrays.fill(visit[i], Integer.MAX_VALUE);
+//		}
 		visit[y][x] = 1;
-		
+
 		Deque<Move> q = new ArrayDeque<>();
 		
 		q.offer(new Move(y,x,0));
@@ -135,7 +138,7 @@ public class Main {
 		for(int i = 0; i < N; i++) {
 			for(int j =0; j < N; j++) {
 				if(banned[i][j]) continue;
-				if(board[i][j] == 1) 
+				if(board[i][j] == 1 && visit[i][j] > 0) 
 					list.add(new Move(i, j, visit[i][j]));
 			}
 		}
