@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
 	static int[][] board;
@@ -9,24 +10,29 @@ public class Main {
 	static int[] dx = {0, -1, 1, 0};
 	static Player[] players;
 	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		M = sc.nextInt();
+	public static void main(String[] args) throws IOException  {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		
 		players = new Player[M];
 		board = new int[N][N];
 		banned = new boolean[N][N];
 		
 		int[][] targets = new int[M][2];
 		
+		
 		for(int i =0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < N; j++) {
-				board[i][j] = sc.nextInt();
+				board[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 		for(int i = 0; i < M; i++) {
-			int y = sc.nextInt();
-			int x = sc.nextInt();
+			st = new StringTokenizer(br.readLine());
+			int y = Integer.parseInt(st.nextToken());
+			int x = Integer.parseInt(st.nextToken());
 			targets[i] = new int[] {y,x};
 		}
 		
