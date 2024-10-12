@@ -109,9 +109,9 @@ public class Main {
 	}
 	
 	static Move findCamp(int y, int x) {
-		boolean[][] visit = new boolean[N][N];
+		int[][] visit = new int[N][N];
 		
-		visit[y][x] = true;
+		visit[y][x] = 1;
 		
 		Deque<Move> q = new ArrayDeque<>();
 		
@@ -119,19 +119,28 @@ public class Main {
 		
 		while(!q.isEmpty()) {
 			Move m = q.poll();
-			if(board[m.y][m.x] == 1) return new Move(m.y, m.x, 0);
 			for(int i = 0; i < 4; i++) {
 				int ny = m.y + dy[i];
 				int nx = m.x + dx[i];
 				
 				if(out(ny,nx)) continue;
 				if(banned[ny][nx]) continue;
-				if(visit[ny][nx]) continue;
-				visit[ny][nx] = true;
+				if(visit[ny][nx] > 0) continue;
+				visit[ny][nx] = visit[m.y][m.x] + 1;
 				q.offer(new Move(ny,nx, 0));
 			}
 		}
-		return new Move(-1, -1, -1);
+		List<Move> list = new ArrayList<>();
+		
+		for(int i = 0; i < N; i++) {
+			for(int j =0; j < N; j++) {
+				if(banned[i][j]) continue;
+				if(board[i][j] == 1) 
+					list.add(new Move(i, j, visit[i][j]));
+			}
+		}
+		Collections.sort(list);;
+		return list.get(0);
 	}
 	
 	public static boolean out(int y, int x) {
@@ -154,13 +163,22 @@ public class Main {
 	}
 }
 
-class Move{
+class Move implements Comparable<Move>{
 	int y, x, d;
 	
 	public Move(int y, int x, int d) {
 		this.y = y;
 		this.x = x;
 		this.d = d;
+	}
+
+	@Override
+	public int compareTo(Move o) {
+		if(this.d != o.d) {
+			return this.d - o.d;
+		}
+		if(this.y != o.y)return this.y - o.y;
+		return this.x - o.x;
 	}
 	
 }
