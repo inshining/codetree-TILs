@@ -33,7 +33,7 @@ public class Main {
                 int a = Math.abs(x1 - y1);
                 int b = Math.abs(x2 - y2);
 
-                if( a < b){
+                if( a <= b){
                     dp[i][j][0] = x1;
                     dp[i][j][1] = y1;
                 }else{
