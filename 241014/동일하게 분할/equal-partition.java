@@ -29,7 +29,7 @@ public class Main {
                         dp[j] = Math.max(dp[j], dp[j-coins[i]] + 1);
                     }
                 }
-                System.out.println(Arrays.toString(dp));
+                // System.out.println(Arrays.toString(dp));
             }
             String ans = dp[target] > 0 ? "Yes" : "No";
             System.out.println(ans);
