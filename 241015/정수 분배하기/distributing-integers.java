@@ -16,7 +16,7 @@ public class Main {
 
         int left =1;
 
-        int k = Integer.MIN_VALUE;
+        int k = 0;
         while(left <= right){
             int mid = (left + right) / 2;
             if(possible(mid, M)){
