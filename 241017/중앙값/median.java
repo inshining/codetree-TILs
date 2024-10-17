@@ -12,6 +12,8 @@ public class Main {
         for (int i = 0; i < t; i++){
             int n = sc.nextInt();
             int mid = -1;
+            left.clear();
+            right.clear();
             for (int j = 1; j <= n; j++){
                 int k = sc.nextInt();
                 if(mid == -1){
