@@ -17,7 +17,7 @@ public class Main {
         int e = list.get(0).e;
         for(int i = 1; i < N; i++){
             int s = list.get(i).s;
-            if( e < s){
+            if( e <= s){
                 e = s;
                 num++;
             }
