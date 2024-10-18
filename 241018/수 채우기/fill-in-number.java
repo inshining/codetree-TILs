@@ -8,11 +8,12 @@ public class Main {
         int ans = 0;
         for(int i =k ; i >= 0; i--){
             int remain = n - (5 * i);
-            ans = i + (remain / 2);
             if(remain % 2 == 0){
+                ans = i + (remain / 2);
                 break;
             }
         }
+        if(ans == 0) ans = -1;
         System.out.println(ans);
     }
 }
