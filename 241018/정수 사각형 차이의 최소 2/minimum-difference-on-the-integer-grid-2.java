@@ -1,49 +1,62 @@
 import java.util.*;
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[][] board = new int[N][N];
-        int[][][] dp = new int[N][N][2];
+    static final int MAX = Integer.MAX_VALUE;
+    static final int MAX_N = 100;
+
+    static int[][] num = new int[MAX_N][MAX_N];
+    static int[][] dp = new int[MAX_N][MAX_N];
+
+    static int ans = MAX;
+    static int N;
+
+    static void init(){
+        for(int i = 0; i < N; i++){
+            for(int j = 0;j < N; j++ ){
+                dp[i][j] = MAX;
+
+            }
+        }
+    
+    dp[0][0] = num[0][0];
+    for(int i = 1; i < N; i++){
+        dp[i][0] = Math.max(dp[i-1][0], num[i][0]);
+    }
+    for(int j = 1; j < N; j++){
+        dp[0][j] = Math.max(dp[0][j-1], num[0][j]);
+    }
+}
+    static int solve(int low){
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
-                board[i][j] = sc.nextInt();
-            }
-        }
-        dp[N-1][N-1][0] = board[N-1][N-1];
-        dp[N-1][N-1][1] = board[N-1][N-1];
-        for(int i = N-2; i >= 0; i--){
-            dp[N-1][i][0] = Math.min(dp[N-1][i+1][0], board[N-1][i]);
-            dp[N-1][i][1] = Math.max(dp[N-1][i+1][1], board[N-1][i]);
-        }
-
-        for(int i = N-2; i >= 0; i--){
-            dp[i][N-1][0] = Math.min(dp[i+1][N-1][0], board[i][N-1]);
-            dp[i][N-1][1] = Math.max(dp[i+1][N-1][1], board[i][N-1]);
-        }
-
-        for(int i = N-2; i >=0 ; i--){
-            for(int j = N-2; j >= 0; j--){
-                int x1 = Math.min(board[i][j], dp[i+1][j][0]);
-                int y1 = Math.max(board[i][j], dp[i+1][j][1]);
-
-                int x2 = Math.min(board[i][j], dp[i][j+1][0]);
-                int y2 = Math.max(board[i][j], dp[i][j+1][1]);
-
-                int a = Math.abs(x1 - y1);
-                int b = Math.abs(x2 - y2);
-
-                if( a <= b){
-                    dp[i][j][0] = x1;
-                    dp[i][j][1] = y1;
-                }else{
-                    dp[i][j][0] = x2;
-                    dp[i][j][1] = y2;                    
-                }
+                if(num[i][j] < low) num[i][j] = MAX;
             }
         }
 
-        int ans = Math.abs(dp[0][0][0] - dp[0][0][1]);
-        System.out.println(ans);
+        init();
+
+        for(int i = 1; i < N; i++)
+            for(int j = 1; j < N; j++)
+                dp[i][j] = Math.max(
+                    Math.min(dp[i-1][j], dp[i][j-1]),
+                    num[i][j]
+                );
+        return dp[N-1][N-1];
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                num[i][j] = sc.nextInt();
+            }
+        }
+
+        for(int lowerBound = 1; lowerBound <= MAX_N; lowerBound++){
+            int upperBound = solve(lowerBound);
+            if(upperBound == MAX) continue;
+            ans = Math.min(ans, upperBound - lowerBound);
+        }
+       System.out.println(ans);
     }
 }
