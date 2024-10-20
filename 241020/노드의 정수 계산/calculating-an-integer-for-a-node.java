@@ -40,9 +40,13 @@ public class Main {
         for(int i = 0; i < map[x].size(); i++){
             int y = map[x].get(i);
             dfs(y);
+        }
 
-            if(x == parent[y] && dp[y] > 0) dp[x] += dp[y];
+        for(int i = 0; i < map[x].size(); i++){
+            int y = map[x].get(i);
+            if(dp[y] > 0) dp[x] += dp[y];
 
         }
+
     }
 }
