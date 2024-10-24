@@ -60,6 +60,7 @@ public class Main {
             sb.append(' ');
             sb.append(ans.get(c).size());
             sb.append(' ');
+            Collections.sort(ans.get(c));
             for(int i = 0; i < ans.get(c).size(); i++){
                 String child = ans.get(c).get(i);
                 sb.append(child);
