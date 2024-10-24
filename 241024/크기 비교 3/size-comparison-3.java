@@ -26,23 +26,20 @@ public class Main {
 
         for(int i = 1; i <= n; i++){
             if(indegree[i] == 0) {
-                sb.append(i);
-                sb.append(' ');
                 pq.offer(i);
             }
         }
 
         while(!pq.isEmpty()){
             int node = pq.poll();
-
+            sb.append(node);
+            sb.append(' ');
             for(int i = 0; i < board[node].size(); i++){
                 int next = board[node].get(i);
                 indegree[next]--;
 
                 
                 if(indegree[next] == 0){
-                    sb.append(next);
-                    sb.append(' ');
                     pq.offer(next);
                 }
             }
