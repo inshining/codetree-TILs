@@ -23,7 +23,7 @@ public class Main {
                 dp[i][j] = Math.max(dp[i][j], dp[i-1][j]);
             }
         }
-        int ans = 0;
+        int ans = -1;
         for(int i = 0; i < MAX_M; i++){
             if(dp[N][i] >= M){
                 ans = i;
