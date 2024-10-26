@@ -6,23 +6,26 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
         int[] arr = new int[N+1];
-
+        int MIN_V = -500001;
         int[][] dp = new int[N+1][M+1];
         for(int i = 0; i<= N; i++){
-            Arrays.fill(dp[i], -500001);
+            for(int j = 1; j <= M; j++){
+                dp[i][j] = MIN_V;
+            }
         }
         for(int i = 1; i <= N; i++){
             arr[i] = sc.nextInt();
         }
-        dp[0][0] = 0;
         dp[1][1] = arr[1];
         for(int i = 2; i <= N; i++){
             int v = arr[i];
             for(int j= 1; j <= M; j++){
 
                 // if(i == 6 && j == 3)
-                dp[i][j] = Math.max(dp[i][j], dp[i-1][j] + v);
-
+                if(dp[i-1][j] != MIN_V){
+                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j]);
+                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j] + v);
+                }
                 dp[i][j] = Math.max(dp[i][j], dp[i-2][j-1] + v);
             }
         }
