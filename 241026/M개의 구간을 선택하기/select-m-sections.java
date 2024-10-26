@@ -22,11 +22,11 @@ public class Main {
             for(int j= 1; j <= M; j++){
 
                 // if(i == 6 && j == 3)
-                if(dp[i-1][j] != MIN_V){
-                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j]);
-                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j] + v);
-                }
-                dp[i][j] = Math.max(dp[i][j], dp[i-2][j-1] + v);
+                // dp[i][j] = Math.max(dp[i][j], dp[i-1][j]+ v);
+                dp[i][j] = Math.max(dp[i][j], dp[i-1][j] + v);
+                
+                for(int k = i-2; k >= 0; k--)
+                    dp[i][j] = Math.max(dp[i][j], dp[k][j-1] + v);
             }
         }
         // for(int i = 1; i <= N; i++){
