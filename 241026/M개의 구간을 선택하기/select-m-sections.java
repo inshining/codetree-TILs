@@ -9,7 +9,7 @@ public class Main {
 
         int[][] dp = new int[N+1][M+1];
         for(int i = 0; i<= N; i++){
-            Arrays.fill(dp[i], -1001);
+            Arrays.fill(dp[i], -500001);
         }
         for(int i = 1; i <= N; i++){
             arr[i] = sc.nextInt();
@@ -29,6 +29,10 @@ public class Main {
         // for(int i = 1; i <= N; i++){
         //     System.out.println(Arrays.toString(dp[i]));
         // }
-        System.out.println(dp[N][M]);
+        int ans = Integer.MIN_VALUE;
+        for(int i = 1; i <= N; i++){
+            ans = Math.max(ans, dp[i][M]);
+        }
+        System.out.println(ans);
     }
 }
