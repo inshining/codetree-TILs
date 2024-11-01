@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    static int[] history;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -12,7 +13,7 @@ public class Main {
         for(int i = 0; i <= N; i++){
             Arrays.fill(board[i], Integer.MAX_VALUE);
         }
-
+        history = new int[N+1];
         int[][] edges = new int[M][3];
 
         for(int i = 0; i < M; i++){
@@ -25,23 +26,31 @@ public class Main {
             edges[i] = new int[]{s,e,w};
         }
 
+
         int minDist = go(board, N);
-        
-        Set<Integer> can = new HashSet<>();
-        for(int i = 0; i < M; i++){
-            int s = edges[i][0];
-            int e = edges[i][1];
+        int idx = N;
+        ArrayList<Integer> h = new ArrayList<>();
+        h.add(idx);
+        while(idx != 1){
+            idx = history[idx];
+            h.add(idx);
+        }
+
+        // System.out.println(h);
+        int ans = 0;
+        for(int i = h.size() - 1; i >= 1; i--){
+            int s = h.get(i);
+            int e = h.get(i-1);
             int t = board[s][e];
             
             board[s][e] = Integer.MAX_VALUE;
             board[e][s] = Integer.MAX_VALUE;
             int minD = go(board, N);
-            can.add(minD);
+            if(minDist != minD) ans++;
             board[s][e] = t;
             board[e][s] = t;
 
         }
-        int ans = can.contains(minDist) ? can.size() - 1 : can.size();
         System.out.println(ans);
     }
 
@@ -78,6 +87,7 @@ public class Main {
                 int nextV = board[edge][i];
                 if(dist[edge] + nextV < dist[i]){
                     dist[i] = dist[edge] + nextV;
+                    history[i] = edge;
                     pq.offer(new int[]{dist[i], i});
                 }
             }
