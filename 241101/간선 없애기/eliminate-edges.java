@@ -21,6 +21,7 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int w = Integer.parseInt(st.nextToken());
             board[s][e] = w;
+            board[e][s] = w;
             edges[i] = new int[]{s,e,w};
         }
 
@@ -30,11 +31,14 @@ public class Main {
         for(int i = 0; i < M; i++){
             int s = edges[i][0];
             int e = edges[i][1];
-            int temp = board[s][e];
+            int t = board[s][e];
+            
             board[s][e] = Integer.MAX_VALUE;
+            board[e][s] = Integer.MAX_VALUE;
             int minD = go(board, N);
             can.add(minD);
-            board[s][e] = temp;
+            board[s][e] = t;
+            board[e][s] = t;
 
         }
         int ans = can.contains(minDist) ? can.size() - 1 : can.size();
