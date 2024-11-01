@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    static int INF = 1000005;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -14,7 +15,7 @@ public class Main {
 
         int[][] board = new int[N+1][N+1];
         for(int i = 0; i <= N; i++){
-            Arrays.fill(board[i], 1000005);
+            Arrays.fill(board[i], INF);
             board[i][i] = 0;
         }
 
@@ -50,10 +51,14 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            if(board[s][e] <= 1000000 ){
-                cnt++;
-                ans += board[s][e];
+            int dist = INF;
+            for(int j = 1; j <= P; j++){
+                dist = Math.min(dist, board[s][j] + board[j][e]);
             }
+
+            if(dist >= INF) continue;
+            ans+= dist;
+            cnt++;
         }
         // System.out.println(isRed[1][2]);
 
