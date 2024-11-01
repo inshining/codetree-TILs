@@ -11,8 +11,6 @@ public class Main {
         int P = Integer.parseInt(st.nextToken());
         int Q = Integer.parseInt(st.nextToken());
 
-        boolean[][] isRed = new boolean[N+1][N+1];
-
         int[][] board = new int[N+1][N+1];
         for(int i = 0; i <= N; i++){
             Arrays.fill(board[i], INF);
@@ -25,18 +23,10 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int w = Integer.parseInt(st.nextToken());
             board[s][e] = w;
-            if(s <= P || e <= P) isRed[s][e] = true;
         }
 
 
         for(int p = 1; p <= N; p++){
-            for(int i = 1; i <= N; i++){
-                for(int j = 1; j <= N; j++){
-                    board[i][j] = Math.min(board[i][j], board[i][p] + board[p][j]);
-                }
-            }
-        }
-        for(int p = 1; p <= P; p++){
             for(int i = 1; i <= N; i++){
                 for(int j = 1; j <= N; j++){
                     board[i][j] = Math.min(board[i][j], board[i][p] + board[p][j]);
