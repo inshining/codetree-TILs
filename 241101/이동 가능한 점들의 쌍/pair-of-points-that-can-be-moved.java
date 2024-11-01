@@ -31,15 +31,18 @@ public class Main {
         for(int p = 1; p <= N; p++){
             for(int i = 1; i <= N; i++){
                 for(int j = 1; j <= N; j++){
-                    if(board[i][j] > board[i][p] + board[p][j] ){
-                        board[i][j] = board[i][p] + board[p][j];
-                        if(i <= P || p <= P || j <= P) isRed[i][j] = true;
-                        else isRed[i][j] = false;
-                    }
-                    // board[i][j] = Math.min(board[i][j] , board[i][p] + board[p][j]);
+                    board[i][j] = Math.min(board[i][j], board[i][p] + board[p][j]);
                 }
             }
         }
+        for(int p = 1; p <= P; p++){
+            for(int i = 1; i <= N; i++){
+                for(int j = 1; j <= N; j++){
+                    board[i][j] = Math.min(board[i][j], board[i][p] + board[p][j]);
+                }
+            }
+        }
+
 
         int cnt = 0;
         int ans = 0;
@@ -47,7 +50,7 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            if(board[s][e] <= 1000000 && isRed[s][e]){
+            if(board[s][e] <= 1000000 ){
                 cnt++;
                 ans += board[s][e];
             }
