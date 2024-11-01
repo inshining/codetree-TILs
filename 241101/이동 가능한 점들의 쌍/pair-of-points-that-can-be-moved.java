@@ -10,6 +10,8 @@ public class Main {
         int P = Integer.parseInt(st.nextToken());
         int Q = Integer.parseInt(st.nextToken());
 
+        boolean[][] isRed = new boolean[N+1][N+1];
+
         int[][] board = new int[N+1][N+1];
         for(int i = 0; i <= N; i++){
             Arrays.fill(board[i], 1000005);
@@ -22,12 +24,19 @@ public class Main {
             int e = Integer.parseInt(st.nextToken());
             int w = Integer.parseInt(st.nextToken());
             board[s][e] = w;
+            if(s <= P || e <= P) isRed[s][e] = true;
         }
 
-        for(int p = 1; p <= P; p++){
+
+        for(int p = 1; p <= N; p++){
             for(int i = 1; i <= N; i++){
                 for(int j = 1; j <= N; j++){
-                    board[i][j] = Math.min(board[i][j] , board[i][p] + board[p][j]);
+                    if(board[i][j] > board[i][p] + board[p][j] ){
+                        board[i][j] = board[i][p] + board[p][j];
+                        if(i <= P || p <= P || j <= P) isRed[i][j] = true;
+                        else isRed[i][j] = false;
+                    }
+                    // board[i][j] = Math.min(board[i][j] , board[i][p] + board[p][j]);
                 }
             }
         }
@@ -38,11 +47,13 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            if(board[s][e] <= 1000000){
+            if(board[s][e] <= 1000000 && isRed[s][e]){
                 cnt++;
                 ans += board[s][e];
             }
         }
+        // System.out.println(isRed[1][2]);
+
         System.out.println(cnt);
         System.out.println(ans);
     }
