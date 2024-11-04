@@ -7,12 +7,15 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int C = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
+        TreeSet<Integer> set = new TreeSet<>();
+
         int[] redStones = new int[C];
         Pair[] blackStones = new Pair[N];
         
         // st = new StringTokenizer(br.readLine());
         for(int i = 0; i < C; i++){
-            redStones[i] = Integer.parseInt(br.readLine());
+            // redStones[i] = Integer.parseInt(br.readLine());
+            set.add(Integer.parseInt(br.readLine()));
         }
 
         
@@ -23,26 +26,38 @@ public class Main {
             blackStones[i] = new Pair(s, e);
         }
 
-        Arrays.sort(redStones);
+        // Arrays.sort(redStones);
+        System.out.println(set);
         Arrays.sort(blackStones);
 
-        int i = 0;
-        int j = 0;
+        // int i = 0;
+        // int j = 0;
         int ans = 0;
-        while(i < C && j < N){
-            int v = redStones[i];
-            Pair p = blackStones[j];
-
-            if(p.s <= v && v <= p.e) {
+        for(int i = 0; i < N; i++){
+            Pair p = blackStones[i];
+            int s = p.s;
+            
+            if(set.floor(s) == null) continue;
+            int k = set.floor(s);
+            if(k <= p.e){
                 ans++;
-                i++;
-                j++;
-            }else if(v < p.s){
-                i++;
-            }else if(p.e < v){
-                j++;
+                set.remove(k);
             }
         }
+        // while(i < C && j < N){
+        //     int v = redStones[i];
+        //     Pair p = blackStones[j];
+
+        //     if(p.s <= v && v <= p.e) {
+        //         ans++;
+        //         i++;
+        //         j++;
+        //     }else if(v < p.s){
+        //         i++;
+        //     }else if(p.e < v){
+        //         j++;
+        //     }
+        // }
         System.out.println(ans);
     }
 
