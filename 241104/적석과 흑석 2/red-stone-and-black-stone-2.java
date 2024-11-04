@@ -7,9 +7,8 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int C = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
-        TreeSet<Integer> set = new TreeSet<>();
-
         int[] redStones = new int[C];
+        TreeSet<Integer> set = new TreeSet<>();
         Pair[] blackStones = new Pair[N];
         
         // st = new StringTokenizer(br.readLine());
@@ -27,7 +26,6 @@ public class Main {
         }
 
         // Arrays.sort(redStones);
-        System.out.println(set);
         Arrays.sort(blackStones);
 
         // int i = 0;
@@ -35,14 +33,19 @@ public class Main {
         int ans = 0;
         for(int i = 0; i < N; i++){
             Pair p = blackStones[i];
+            // System.out.println(p.s + " " + p.e);
+
             int s = p.s;
-            
-            if(set.floor(s) == null) continue;
-            int k = set.floor(s);
+            // System.out.println(set.ceiling(s));
+            // System.out.println(set);
+
+            if(set.ceiling(s) == null) continue;
+            int k = set.ceiling(s);
             if(k <= p.e){
                 ans++;
                 set.remove(k);
             }
+
         }
         // while(i < C && j < N){
         //     int v = redStones[i];
@@ -70,6 +73,9 @@ public class Main {
 
         @Override
         public int compareTo(Pair other){
+            int diff1 = this.e - this.s;
+            int diff2 = other.e - other.s;
+            if(diff1 != diff2) return diff1 - diff2;
             if(this.s == other.s) return this.e - other.e;
             return this.s - other.s;
         }
