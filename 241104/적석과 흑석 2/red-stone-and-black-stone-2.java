@@ -73,11 +73,8 @@ public class Main {
 
         @Override
         public int compareTo(Pair other){
-            int diff1 = this.e - this.s;
-            int diff2 = other.e - other.s;
-            if(diff1 != diff2) return diff1 - diff2;
-            if(this.s == other.s) return this.e - other.e;
-            return this.s - other.s;
+            return this.e - other.e;
+            // return this.s - other.s;
         }
     }
 }
