@@ -14,6 +14,10 @@ public class Main {
         public int compareTo(Pair other){
             int a = this.s - this.e;
             int b= other.s - other.e;
+            if(b == a){
+                if(this.s == other.s) return this.e - other.e;
+                return this.s - other.s;
+            }
             return b - a;
         }
 
@@ -44,6 +48,7 @@ public class Main {
         for(int i = 0; i < N; i++){
             Pair p = list.get(i);
             T.append(ss[p.id]);
+            // System.out.println(p.id + " " + p.s + " " + p.e);
         }
 
         int left = 0;
@@ -57,5 +62,7 @@ public class Main {
             }
         }
         System.out.println(ans);
+        // System.out.println(T);
+
     }
 }
