@@ -12,13 +12,7 @@ public class Main {
 
         @Override
         public int compareTo(Pair other){
-            int a = this.s - this.e;
-            int b= other.s - other.e;
-            if(b == a){
-                if(this.s == other.s) return this.e - other.e;
-                return this.s - other.s;
-            }
-            return b - a;
+            return other.s * this.e - this.s * other.e;
         }
 
     }
@@ -28,41 +22,42 @@ public class Main {
 
         String[] ss = new String[N];
 
-        // List<Pair> list = new ArrayList<>();
-        List<String> list = new ArrayList<>();
+        List<Pair> list = new ArrayList<>();
+        // List<String> list = new ArrayList<>();
 
         for(int i = 0; i < N; i++){
-            list.add(br.readLine());
-            // ss[i] = br.readLine();
-            // int left = 0;
-            // int right = 0;
-            // for(int j = 0; j < ss[i].length(); j++){
-            //     char c = ss[i].charAt(j);
-            //     if(c == '(') left++;
-            //     else if(c==')') right++;
-            // }
-            // list.add(new Pair(i, left, right));
+            // list.add(br.readLine());
+            ss[i] = br.readLine();
+            int left = 0;
+            int right = 0;
+            for(int j = 0; j < ss[i].length(); j++){
+                char c = ss[i].charAt(j);
+                if(c == '(') left++;
+                else if(c==')') right++;
+            }
+            list.add(new Pair(i, left, right));
         }
+        Collections.sort(list);
+        // Collections.sort(list, (o1, o2) -> {
+        //     StringBuilder sb1 = new StringBuilder();
+        //     StringBuilder sb2 = new StringBuilder();
 
-        Collections.sort(list, (o1, o2) -> {
-            StringBuilder sb1 = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
+        //     sb1.append(o1).append(o2);
+        //     sb2.append(o2).append(o1);
+        //     int a = go(sb1.toString());
+        //     int b = go(sb2.toString());
 
-            sb1.append(o1).append(o2);
-            sb2.append(o2).append(o1);
-            int a = go(sb1.toString());
-            int b = go(sb2.toString());
+        //     return b - a;
 
-            return b - a;
-
-        });
+        // });
         
         StringBuilder T = new StringBuilder();
 
-        for(String s : list){
-            T.append(s);
+        for(Pair s : list){
+            T.append(ss[s.id]);
         }
         // int left = 0;
+        // System.out.println(T.toString());
         int ans = go(T.toString());
         System.out.println(ans);
         // System.out.println(T);
