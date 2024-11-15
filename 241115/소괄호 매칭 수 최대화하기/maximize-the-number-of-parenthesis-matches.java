@@ -58,14 +58,14 @@ public class Main {
         }
         // int left = 0;
         // System.out.println(T.toString());
-        int ans = go(T.toString());
+        long ans = go(T.toString());
         System.out.println(ans);
         // System.out.println(T);
 
     }
 
-    public static int go(String T){
-        int ans = 0;
+    public static long go(String T){
+        long ans = 0;
         int left = 0;
 
         for(int i = 0; i < T.length(); i++){
