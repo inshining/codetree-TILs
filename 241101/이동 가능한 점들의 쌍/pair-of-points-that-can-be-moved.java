@@ -2,7 +2,6 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int INF = (int)1e9;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -13,7 +12,7 @@ public class Main {
 
         int[][] board = new int[N+1][N+1];
         for(int i = 0; i <= N; i++){
-            Arrays.fill(board[i], INF);
+            Arrays.fill(board[i], 1000005);
             board[i][i] = 0;
         }
 
@@ -25,33 +24,25 @@ public class Main {
             board[s][e] = w;
         }
 
-
-        for(int p = 1; p <= N; p++){
+        for(int p = 1; p <= P; p++){
             for(int i = 1; i <= N; i++){
                 for(int j = 1; j <= N; j++){
-                    board[i][j] = Math.min(board[i][j], board[i][p] + board[p][j]);
+                    board[i][j] = Math.min(board[i][j] , board[i][p] + board[p][j]);
                 }
             }
         }
 
-
         int cnt = 0;
-        long ans = 0;
+        int ans = 0;
         for(int i = 0; i < Q; i++){
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            int dist = INF;
-            for(int j = 1; j <= P; j++){
-                dist = Math.min(dist, board[s][j] + board[j][e]);
+            if(board[s][e] <= 1000000){
+                cnt++;
+                ans += board[s][e];
             }
-
-            if(dist >= INF) continue;
-            ans+= dist;
-            cnt++;
         }
-        // System.out.println(isRed[1][2]);
-
         System.out.println(cnt);
         System.out.println(ans);
     }
